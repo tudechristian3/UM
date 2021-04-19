@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:fitsSystemWindows="true">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="false"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingEnd="15dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingStart="15dp">
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/streetaddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:hint="@string/string_streetaddress"
+                    android:inputType="textPersonName"
+                    android:textAllCaps="true"
+                    android:textSize="16sp"
+                    app:met_baseColor="@color/colorProductDetail"
+                    app:met_floatingLabel="normal"
+                    app:met_floatingLabelPadding="5dp"
+                    app:met_floatingLabelTextColor="@color/colorShoppingCartTotal"
+                    app:met_hideUnderline="false"
+                    app:met_primaryColor="@color/colorShoppingCartTotal"
+                    app:met_textColor="@color/color_333333"
+                    app:met_typeface="fonts/ElliotSans-Regular.ttf" />
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/city"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:hint="@string/string_city"
+                    android:inputType="textPersonName"
+                    android:textAllCaps="true"
+                    android:textSize="16sp"
+                    app:met_baseColor="@color/colorProductDetail"
+                    app:met_floatingLabel="normal"
+                    app:met_floatingLabelPadding="5dp"
+                    app:met_floatingLabelTextColor="@color/colorShoppingCartTotal"
+                    app:met_hideUnderline="false"
+                    app:met_primaryColor="@color/colorShoppingCartTotal"
+                    app:met_textColor="@color/color_333333"
+                    app:met_typeface="fonts/ElliotSans-Regular.ttf" />
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/province"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:hint="@string/string_province"
+                    android:inputType="textPersonName"
+                    android:textAllCaps="true"
+                    android:textSize="16sp"
+                    app:met_baseColor="@color/colorProductDetail"
+                    app:met_floatingLabel="normal"
+                    app:met_floatingLabelPadding="5dp"
+                    app:met_floatingLabelTextColor="@color/colorShoppingCartTotal"
+                    app:met_hideUnderline="false"
+                    app:met_primaryColor="@color/colorShoppingCartTotal"
+                    app:met_textColor="@color/color_333333"
+                    app:met_typeface="fonts/ElliotSans-Regular.ttf" />
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/country"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:hint="@string/string_country"
+                    android:inputType="textPersonName"
+                    android:textAllCaps="true"
+                    android:textSize="16sp"
+                    app:met_baseColor="@color/colorProductDetail"
+                    app:met_floatingLabel="normal"
+                    app:met_floatingLabelPadding="5dp"
+                    app:met_floatingLabelTextColor="@color/colorShoppingCartTotal"
+                    app:met_hideUnderline="false"
+                    app:met_primaryColor="@color/colorShoppingCartTotal"
+                    app:met_textColor="@color/color_333333"
+                    app:met_typeface="fonts/ElliotSans-Regular.ttf" />
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/zip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:hint="@string/string_zip"
+                    android:inputType="number"
+                    android:textAllCaps="false"
+                    android:textSize="16sp"
+                    app:met_baseColor="@color/colorProductDetail"
+                    app:met_floatingLabel="normal"
+                    app:met_floatingLabelPadding="5dp"
+                    app:met_floatingLabelTextColor="@color/colorShoppingCartTotal"
+                    app:met_hideUnderline="false"
+                    app:met_primaryColor="@color/colorShoppingCartTotal"
+                    app:met_textColor="@color/color_333333"
+                    app:met_typeface="fonts/ElliotSans-Regular.ttf" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingEnd="15dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingStart="15dp">
+
+                <TextView
+                    android:id="@+id/addresslabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:textColor="@color/color_212121"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/addresshint"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:textColor="@color/color_C6C6C6"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/locationAddress"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/box_halo"
+                    android:focusable="true"
+                    android:gravity="top|start"
+                    android:inputType="textMultiLine|textNoSuggestions"
+                    android:lines="8"
+                    android:maxLines="10"
+                    android:minLines="6"
+                    android:padding="10dp"
+                    android:scrollbars="vertical"
+                    android:textColor="@color/color_333333" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/buttons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@color/colorWhite"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/saveAddress"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorCategoryItem"
+                    android:text="SAVE ADDRESS"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </ScrollView>
+</FrameLayout>

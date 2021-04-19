@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusableInTouchMode="false"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:id="@+id/forPaymentFrameImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="125dp"
+                    android:background="@color/color_E4E4E4"
+                    android:gravity="center|center_vertical"
+                    android:minHeight="200dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center|center_vertical"
+                        android:layout_marginBottom="0dp"
+                        android:layout_marginTop="0dp"
+                        android:contentDescription="@null"
+                        android:padding="0dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/profile_image_bgd" />
+
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="15dp"
+                    android:orientation="vertical"
+                    android:paddingEnd="15dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingStart="15dp">
+
+                    <TextView
+                        android:id="@+id/branchlabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:text="@string/string_branch_info"
+                        android:textColor="@color/color_1976D2"
+                        android:textSize="18sp" />
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/branchname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:enabled="false"
+                        android:hint="@string/string_branch_name"
+                        android:inputType="textPersonName|textNoSuggestions"
+                        android:textSize="16sp"
+                        app:met_baseColor="@color/colorProductDetail"
+                        app:met_floatingLabel="normal"
+                        app:met_floatingLabelTextColor="@color/colorShoppingCartTotal"
+                        app:met_floatingLabelTextSize="14sp"
+                        app:met_primaryColor="@color/colorShoppingCartTotal"
+                        app:met_textColor="@color/color_333333"
+                        app:met_typeface="fonts/ElliotSans-Regular.ttf" />
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/branchaddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:enabled="false"
+                        android:hint="@string/string_branch_address"
+                        android:inputType="textPersonName|textNoSuggestions"
+                        android:textSize="16sp"
+                        app:met_baseColor="@color/colorProductDetail"
+                        app:met_floatingLabel="normal"
+                        app:met_floatingLabelTextColor="@color/colorShoppingCartTotal"
+                        app:met_floatingLabelTextSize="14sp"
+                        app:met_primaryColor="@color/colorShoppingCartTotal"
+                        app:met_textColor="@color/color_333333"
+                        app:met_typeface="fonts/ElliotSans-Regular.ttf" />
+
+                    <TextView
+                        android:id="@+id/schedulelabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:text="@string/string_schedule_info"
+                        android:textColor="@color/color_1976D2"
+                        android:textSize="18sp" />
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/scheduledate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:enabled="true"
+                        android:focusableInTouchMode="false"
+                        android:hint="@string/string_schedule_date"
+                        android:inputType="textPersonName|textNoSuggestions"
+                        android:textSize="16sp"
+                        app:met_baseColor="@color/colorProductDetail"
+                        app:met_floatingLabel="normal"
+                        app:met_floatingLabelTextColor="@color/colorShoppingCartTotal"
+                        app:met_floatingLabelTextSize="14sp"
+                        app:met_primaryColor="@color/colorShoppingCartTotal"
+                        app:met_textColor="@color/color_333333"
+                        app:met_typeface="fonts/ElliotSans-Regular.ttf" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingEnd="15dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingStart="15dp">
+
+                    <TextView
+                        android:id="@+id/label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/color_212121"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/instructions"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/box_halo"
+                        android:focusable="true"
+                        android:gravity="top|start"
+                        android:inputType="textMultiLine|textNoSuggestions"
+                        android:lines="8"
+                        android:maxLength="50"
+                        android:maxLines="10"
+                        android:minLines="6"
+                        android:padding="10dp"
+                        android:scrollbars="vertical"
+                        android:textColor="@color/color_333333" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</LinearLayout>

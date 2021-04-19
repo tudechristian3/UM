@@ -1,0 +1,2 @@
+com/paymaya/sdk/android/BuildConfig.java
+ com.paymaya.sdk.android.BuildConfig

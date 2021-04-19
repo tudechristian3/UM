@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nsv_search"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipChildren="false"
+        android:orientation="vertical">
+
+        <!-- android:clipChildren="false" -->
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/toolbarlayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <!--<include layout="@layout/toolbar" />-->
+
+                <com.claudiodegio.msv.SuggestionMaterialSearchView
+                    android:id="@+id/sv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:elevation="5dip" />
+
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/progressbarlayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/toolbarlayout"
+                android:orientation="vertical">
+
+                <include layout="@layout/smooth_progress_bar" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/suggestivelayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_below="@id/toolbarlayout"
+                android:orientation="vertical">
+                <!--    android:layout_marginTop="60dp" -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_suggestive_searches"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorWhite" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/maincontaineradapter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/toolbarlayout"
+                android:orientation="vertical">
+                <!-- android:layout_marginTop="60dp" -->
+                <LinearLayout
+                    android:id="@+id/recentLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Recent Searches"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/clearRecent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end|top"
+                            android:background="@drawable/clear_background"
+                            android:gravity="center"
+                            android:paddingBottom="0dp"
+                            android:paddingEnd="5dp"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:paddingStart="5dp"
+                            android:paddingTop="0dp"
+                            android:text="Clear"
+                            android:textColor="@android:color/white"
+                            android:textSize="12sp" />
+
+                        <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:gravity="end"-->
+                        <!--android:text="Clear"-->
+                        <!--android:textColor="@color/color_AAB8C2"-->
+                        <!--android:textSize="12sp"-->
+                        <!--android:textStyle="bold" />-->
+
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_recent_searches"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/seperatorview"
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp"
+                    android:background="@color/light_gray"
+                    android:orientation="vertical" />
+
+                <LinearLayout
+                    android:id="@+id/popularLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:text="Popular Searches"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <!--<it.gmariotti.cardslib.library.recyclerview.view.CardRecyclerView-->
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_popular_searches"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clipToPadding="false"
+                        tools:listitem="@layout/item_popular_search" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical|start"
+        android:orientation="horizontal"
+        android:visibility="visible">
+
+        <TextView
+            android:id="@+id/itempick"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:id="@+id/addMoreItems"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:contentDescription="@null"
+            android:paddingEnd="3dp"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:paddingStart="3dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_expand_down"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/savingsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical|start"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:contentDescription="@null"
+            android:src="@drawable/savings_pig_icon"
+            android:tint="@color/color_D4B776" />
+
+        <TextView
+            android:id="@+id/txvSavings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|start"
+            android:paddingEnd="0dp"
+            android:paddingLeft="3dp"
+            android:paddingRight="0dp"
+            android:paddingStart="3dp"
+            android:textColor="@color/color_4A4A4A"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+</LinearLayout>
+
+
+

@@ -1,0 +1,17 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.claudiodegio:MsvSearch:1.2.0@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b55af93ebb7911aa1b4f6f717714e6c1/jetified-MsvSearch-1.2.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b55af93ebb7911aa1b4f6f717714e6c1/jetified-MsvSearch-1.2.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b55af93ebb7911aa1b4f6f717714e6c1/jetified-MsvSearch-1.2.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/26ed52355da5fd6df30d20c0782b1e7f/jetified-MsvSearch-1.2.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/26ed52355da5fd6df30d20c0782b1e7f/jetified-MsvSearch-1.2.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/26ed52355da5fd6df30d20c0782b1e7f/jetified-MsvSearch-1.2.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7bbbd7bda881ee95b9ca3efea9bed5ea/jetified-MsvSearch-1.2.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7bbbd7bda881ee95b9ca3efea9bed5ea/jetified-MsvSearch-1.2.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7bbbd7bda881ee95b9ca3efea9bed5ea/jetified-MsvSearch-1.2.0/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,2046 @@
+package com.ultramega.shop.activity;
+
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.core.text.HtmlCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import android.text.Html;
+import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.Toolbar;
+
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.google.gson.Gson;
+import com.ultramega.shop.R;
+import com.ultramega.shop.activity.wallet.PesoPayWebViewActivity;
+import com.ultramega.shop.kotlinpaymaya.PaymayaRedirectionActivity;
+import com.ultramega.shop.adapter.myorders.MyOrdersItemDetailsRecyclerAdapter;
+import com.ultramega.shop.adapter.myorders.OrderPaymentsRecyclerViewAdapter;
+import com.ultramega.shop.base.BaseActivity;
+import com.ultramega.shop.common.CommonFunctions;
+import com.ultramega.shop.database.UltramegaShopUtilities;
+import com.ultramega.shop.decoration.DividerItemDecoration;
+import com.ultramega.shop.pojo.ConsumerProfile;
+import com.ultramega.shop.pojo.ConsumerWallet;
+import com.ultramega.shop.pojo.OrderPayments;
+import com.ultramega.shop.pojo.OrdersQueue;
+import com.ultramega.shop.pojo.PesoPay;
+import com.ultramega.shop.pojo.WholesalerProfile;
+import com.ultramega.shop.responses.CancelTransactionResponse;
+import com.ultramega.shop.responses.ConfirmOrderChangesResponse;
+import com.ultramega.shop.responses.GenericResponse;
+import com.ultramega.shop.responses.GetConsumerWalletResponse;
+import com.ultramega.shop.responses.GetOrdersQueueResponse;
+import com.ultramega.shop.responses.GetPaymentsResponse;
+import com.ultramega.shop.responses.GetSessionResponse;
+import com.ultramega.shop.responses.PesoPayDataResponse;
+import com.ultramega.shop.responses.UpayResponse;
+import com.ultramega.shop.rest.RetrofitBuild;
+import com.ultramega.shop.util.UserPreferenceManager;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Objects;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
+import in.aabhasjindal.otptextview.OtpTextView;
+import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class ViewMyOrdersDetailsActivity extends BaseActivity implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
+    private UltramegaShopUtilities mdb;
+    private String imei = "";
+    private String authcode = "";
+    private String sessionid = "";
+    private String customerid = "";
+    private String usertype = "";
+    private String ordertxnid = "";
+    private String userid = "";
+    private String customername = "";
+    private double totalOrderAmount;
+    private double totalPaymentAmount;
+    private MyOrdersItemDetailsRecyclerAdapter mOrdersItemDetailsAdapter;
+    private String currentActionStatus = "";
+    private String status = "";
+    private String orderstatus = "";
+    private String year;
+    private String month;
+    private String mTitle;
+    private String mStatus;
+
+    private String delivereefee = "";
+    private String vehicleid = "";
+
+    //payment details
+    private LinearLayout payment_details_layout;
+    private TextView paymentdetailslabel;
+
+    private TextView txvTxnId;
+    private TextView txvTotalAmount;
+    private TextView txvDeliveryCharge;
+    private TextView txvAmountPaid;
+    private TextView txvPaymentOption;
+    private OrderPayments orderPayments;
+
+    private MaterialDialog mCancelDialog;
+    private MaterialDialog mConfirmationDialog;
+    private MaterialDialog mPaymentOptionsDialog;
+    private MaterialDialog mDialog;
+
+    //PAYMENTS LIST
+    private RecyclerView recyclerViewPayments;
+    private OrderPaymentsRecyclerViewAdapter mPaymentsAdapter;
+
+    private OrdersQueue ordersQueue;
+
+    private LinearLayout mSmoothProgressBar;
+
+    //ORDER DETAILS
+    private TextView itemsLabel;
+    private TextView txvtxnnolabel;
+    private TextView txvtxnnovalue;
+    private TextView txndatetime;
+    private TextView txvquantity;
+    private TextView txvquantitylabel;
+    private TextView txvorderdetailsamount;
+    private TextView txvorderdetailsname;
+    private TextView txvmobilenumber;
+    private TextView txvemailaddress;
+    private TextView txvaddress;
+    private TextView txvcharge;
+    private TextView txvchargelabel;
+    private TextView txvstatus;
+    private TextView txvIsExpired;
+    private LinearLayout deliveryChargeLayout;
+
+    //PICK UP DETAILS
+    private LinearLayout pickupLayout;
+    private TextView txvPlabel;
+    private TextView txvbranchname;
+    private TextView txvbranchaddress;
+
+    //BUTTONS LAYOUT
+    private LinearLayout buttonslayout;
+    private Button btnPay;
+    private Button btnCancelWholeOrder;
+
+    //CANCEL LAYOUT
+    private EditText instructions;
+    private TextView txvPreBalance;
+    private TextView txvAmountRefunded;
+    private TextView txvPostBalance;
+
+    //PAYMENT OPTION DIALOG
+    private TextView txvWalletBalance;
+
+    private boolean isWallet = false;
+
+    private int limit = 0;
+    RecyclerView recyclerView;
+    SwipeRefreshLayout swipeRefreshLayoutVieworders;
+
+    //pyament option
+    private LinearLayout paymayaOption,cashOption,upayOption;
+    private List<OrdersQueue> orderDetails = new ArrayList<>();
+
+    private String paymentOption = "";
+    private String mobilenumber;
+    private String otp;
+    private SweetAlertDialog sweetAlertDialog;
+    private String deliveryCharge = "0";
+    //private String delivereefree = "";
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        setAppTheme(getViewContext());
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_view_my_orders_details);
+        setUpToolBar();
+
+        getValues();
+
+        //extra data
+        Intent intent = getIntent();
+        orderstatus = intent.getStringExtra("title").toUpperCase();
+        mTitle = intent.getStringExtra("title");
+        OrdersQueue item = intent.getParcelableExtra("item");
+        ordersQueue = item;
+        Log.d("okhttp","DATA:"+new Gson().toJson(ordersQueue));
+
+
+        //initialize date
+        year = CommonFunctions.getYearFromDate(item.getCompletedDateTime());
+        month = CommonFunctions.getMonthFromDate(item.getCompletedDateTime());
+        paymentOption = ordersQueue.getPaymentType();
+
+        //initialize with empty data
+        mdb = new UltramegaShopUtilities(getViewContext());
+        imei = CommonFunctions.getIMEI(getViewContext());
+        usertype = getCurrentUserType(getViewContext());
+        ordertxnid = item.getOrderTxnID();
+        totalOrderAmount = item.getTotalOrderAmount();
+        status = item.getStatus().replaceAll("\\s+", "").toUpperCase();
+
+
+        if (usertype.equals("CONSUMER")) {
+            ConsumerProfile itemProf = mdb.getConsumerProfile();
+            customerid = itemProf.getConsumerID();
+            userid = itemProf.getUserID();
+            customername = itemProf.getFirstName() + " " + itemProf.getLastName();
+        } else if (usertype.equals("WHOLESALER")) {
+            WholesalerProfile wholesalerProfile = mdb.getWholesalerProfile();
+            customerid = wholesalerProfile.getWholesalerID();
+            userid = wholesalerProfile.getUserID();
+            customername = wholesalerProfile.getFirstName() + " " +
+                    (wholesalerProfile.getMiddleName().length() > 0 ? wholesalerProfile.getMiddleName() : "") + " " +
+                    wholesalerProfile.getLastName();
+        }
+
+        try {
+
+            //===========
+            //INITIALIZE
+            //===========
+            init();
+
+            //===========
+            //SETUP RECYCLER VIEW
+            //===========
+            setUpRecyclerView();
+
+            //=======================
+            //SETUP BUTTONS
+            //=======================
+            if (usertype.equals("CONSUMER")) {
+                setUpButtons();
+            }
+
+            //=======================
+            //SETUP PAYMENT DETAILS
+            //=======================
+            setUpPaymentDetails(status);
+
+            //=======================
+            //SETUP TITLE
+            //=======================
+            setUpToolbarTitle();
+
+            //=======================
+            //INITIALIZE DATA
+            //=======================
+            initData(item);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void getValues() {
+        mdb = new UltramegaShopUtilities(getViewContext());
+        ConsumerProfile itemProf = mdb.getConsumerProfile();
+        imei = CommonFunctions.getIMEI(getViewContext());
+        userid = itemProf.getUserID();
+        customerid = mdb.getConsumerID();
+        userid = itemProf.getUserID();
+        usertype = getCurrentUserType(getViewContext());
+        //branchid = UserPreferenceManager.getBranchID(getActivity());
+        sessionid = UserPreferenceManager.getSession(getViewContext());
+        //instructions = getArguments().getString("instructions");
+        //pickupschedule = UserPreferenceManager.getPickupSchedule(getViewContext());
+//        delivereefee = ".";
+//        vehicleid = ".";
+        delivereefee = UserPreferenceManager.getDeliveryFee(getViewContext());
+        vehicleid = UserPreferenceManager.getVehicleID(getViewContext());
+//        Toast.makeText(getViewContext(), "Delivery Charge" + delivereefee, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getViewContext(), "Orders", Toast.LENGTH_SHORT).show();
+        //customerdeliveryaddress = "sample";
+        //latitude = "100.23";
+        //longitude = "50.123";
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        if (CommonFunctions.hasNewOrderUpdate) {
+            finish();
+        }
+    }
+
+    private void init() {
+        swipeRefreshLayoutVieworders = findViewById(R.id.swipeRefreshLayoutVieworders);
+        swipeRefreshLayoutVieworders.setOnRefreshListener(this);
+        mSmoothProgressBar = findViewById(R.id.mSmoothProgressBar);
+        itemsLabel = findViewById(R.id.itemsLabel);
+        txvtxnnolabel = findViewById(R.id.my_order_details_product_transaction_number_label);
+        txvtxnnovalue = findViewById(R.id.my_order_details_product_transaction_number);
+        txndatetime = findViewById(R.id.my_order_details_date_time);
+        txvquantity = findViewById(R.id.my_order_details_product_quantity);
+        txvquantitylabel = findViewById(R.id.my_order_details_product_quantity_label);
+        txvorderdetailsamount = findViewById(R.id.my_order_details_product_amount);
+        txvorderdetailsname = findViewById(R.id.my_order_details_name);
+        txvmobilenumber = findViewById(R.id.my_order_details_mobile_number);
+        txvemailaddress = findViewById(R.id.my_order_details_email_address);
+        txvaddress = findViewById(R.id.my_order_details_address);
+        txvcharge = findViewById(R.id.items_delivery_charge);
+        txvchargelabel = findViewById(R.id.items_delivery_charge_lbl);
+        pickupLayout = findViewById(R.id.pickupLayout);
+        txvPlabel = findViewById(R.id.txvPlabel);
+        txvbranchname = findViewById(R.id.txvbranchname);
+        txvbranchaddress = findViewById(R.id.txvbranchaddress);
+        payment_details_layout = findViewById(R.id.payment_details_layout);
+        paymentdetailslabel = findViewById(R.id.paymentdetailslabel);
+        txvstatus = findViewById(R.id.txvstatus);
+        txvIsExpired = findViewById(R.id.txvIsExpired);
+
+        recyclerViewPayments = findViewById(R.id.recycler_view_payments);
+        recyclerViewPayments.setLayoutManager(new LinearLayoutManager(getViewContext()));
+        mPaymentsAdapter = new OrderPaymentsRecyclerViewAdapter(getViewContext());
+        recyclerViewPayments.setNestedScrollingEnabled(false);
+        recyclerViewPayments.setItemAnimator(new SlideInUpAnimator());
+        recyclerViewPayments.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getViewContext(), R.drawable.recycler_divider)));
+        recyclerViewPayments.setAdapter(mPaymentsAdapter);
+
+
+    }
+
+    public void initData(OrdersQueue item) {
+        totalPaymentAmount = 0;
+
+        if (item.getIsExpiredOrder() == 1) {
+            txvIsExpired.setVisibility(View.VISIBLE);
+            txvIsExpired.setText(CommonFunctions.setTypeFace(getViewContext(), "fonts/ElliotSans-Bold.ttf", "EXPIRED"));
+        } else {
+            txvIsExpired.setVisibility(View.GONE);
+        }
+
+        txvtxnnolabel.setText(CommonFunctions.setTypeFace(getViewContext(), "fonts/ElliotSans-Regular.ttf", "TXN#"));
+        txvtxnnovalue.setText(CommonFunctions.setTypeFace(getViewContext(), "fonts/ElliotSans-Regular.ttf", item.getOrderTxnID()));
+        txvquantity.setText(CommonFunctions.setTypeFace(getViewContext(), "fonts/ElliotSans-Regular.ttf", String.valueOf(item.getTotalItems())));
+        txvquantitylabel.setText(CommonFunctions.setTypeFace(getViewContext(), "fonts/ElliotSans-Regular.ttf", item.getTotalItems() > 1 ? "Items" : "Item"));
+        itemsLabel.setText(CommonFunctions.setTypeFace(getViewContext(), "fonts/ElliotSans-Regular.ttf", "ITEMS"));
+        txvorderdetailsamount.setText(CommonFunctions.setTypeFace(getViewContext(), "fonts/ElliotSans-Bold.ttf", CommonFunctions.currencyFormatter(String.valueOf(item.getTotalOrderAmount()))));
+        if (usertype.equals("CONSUMER")) {
+
+            setupOrderStatus(item.getStatus());
+
+            if (orderstatus.equals("PENDING")) {
+                txndatetime.setText(CommonFunctions.setTypeFace(getViewContext(), "fonts/ElliotSans-Regular.ttf", CommonFunctions.parseOrderDate(item.getAddedDateTime()).toUpperCase()));
+            } else if (orderstatus.equals("COMPLETED")) {
+                txndatetime.setText(CommonFunctions.setTypeFace(getViewContext(), "fonts/ElliotSans-Regular.ttf", CommonFunctions.parseOrderDate(item.getCompletedDateTime()).toUpperCase()));
+            }
+
+            if (item.getCustomerName().equals(".") || item.getCustomerName().isEmpty()) {
+                txvorderdetailsname.setVisibility(View.GONE);
+            } else {
+                txvorderdetailsname.setText(CommonFunctions.setTypeFace(getViewContext(), "fonts/ElliotSans-Regular.ttf", capitalizeWord(item.getCustomerName())));
+            }
+
+            if (item.getCustomerMobileNumber().equals(".") || item.getCustomerMobileNumber().isEmpty()) {
+                txvmobilenumber.setVisibility(View.GONE);
+            } else {
+                txvmobilenumber.setText(CommonFunctions.setTypeFace(getViewContext(), "fonts/ElliotSans-Regular.ttf", "+" + item.getCustomerMobileNumber()));
+            }
+
+            if (item.getCustomerEmailAddress().equals(".") || item.getCustomerEmailAddress().isEmpty()) {
+                txvemailaddress.setVisibility(View.GONE);
+            } else {
+                txvemailaddress.setText(CommonFunctions.setTypeFace(getViewContext(), "fonts/ElliotSans-Regular.ttf", item.getCustomerEmailAddress().equals(".") ? "" : item.getCustomerEmailAddress()));
+            }
+
+            if (item.getCustomerDeliveryAddress().length() > 1) {
+                String address = capitalizeWord(item.getCustomerDeliveryAddress());
+                txvaddress.setText(CommonFunctions.setTypeFace(getViewContext(), "fonts/ElliotSans-Regular.ttf", address));
+            } else {
+                txvaddress.setVisibility(View.GONE);
+            }
+
+            if (item.getOrderType().equals("PICKUP")) {
+                pickupLayout.setVisibility(View.VISIBLE);
+                txvcharge.setVisibility(View.GONE);
+                txvchargelabel.setVisibility(View.GONE);
+                txvPlabel.setText(CommonFunctions.setTypeFace(getViewContext(), "fonts/ElliotSans-Regular.ttf", "PICK UP"));
+                try {
+
+                    if(item.getXMLDetails().equals(".")){
+                        String branchname = CommonFunctions.parseXML(item.getCustomerRemarks(), "branchname");
+                        txvbranchname.setText(CommonFunctions.setTypeFace(getViewContext(), "fonts/ElliotSans-Regular.ttf", branchname.toUpperCase()));
+
+                        String branchstreetaddress = CommonFunctions.parseXML(item.getCustomerRemarks(), "branchstreetaddress").equals(".") ? "" : CommonFunctions.parseXML(item.getCustomerRemarks(), "branchstreetaddress");
+                        String branchcity = CommonFunctions.parseXML(item.getCustomerRemarks(), "branchcity").equals(".") ? "" : CommonFunctions.parseXML(item.getCustomerRemarks(), "branchcity");
+                        String branchprovince = CommonFunctions.parseXML(item.getCustomerRemarks(), "branchprovince").equals(".") ? "" : CommonFunctions.parseXML(item.getCustomerRemarks(), "branchprovince");
+                        String branchzip = CommonFunctions.parseXML(item.getCustomerRemarks(), "branchzip").equals(".") ? "" : CommonFunctions.parseXML(item.getCustomerRemarks(), "branchzip");
+                        String branchcountry = CommonFunctions.parseXML(item.getCustomerRemarks(), "branchcountry").equals(".") ? "" : CommonFunctions.parseXML(item.getCustomerRemarks(), "branchcountry");
+                        String address = branchstreetaddress + ", " +
+                                branchcity + ", " +
+                                branchprovince + ", " +
+                                branchzip + ", " +
+                                branchcountry;
+
+                        txvbranchaddress.setText(CommonFunctions.setTypeFace(getViewContext(), "fonts/ElliotSans-Regular.ttf", capitalizeWord(address)));
+
+                    }else{
+                        String branchname = CommonFunctions.parseXML(item.getXMLDetails(), "branchname");
+                        txvbranchname.setText(CommonFunctions.setTypeFace(getViewContext(), "fonts/ElliotSans-Regular.ttf", branchname.toUpperCase()));
+
+                        String branchstreetaddress = CommonFunctions.parseXML(item.getXMLDetails(), "branchstreetaddress").equals(".") ? "" : CommonFunctions.parseXML(item.getXMLDetails(), "branchstreetaddress");
+                        String branchcity = CommonFunctions.parseXML(item.getXMLDetails(), "branchcity").equals(".") ? "" : CommonFunctions.parseXML(item.getXMLDetails(), "branchcity");
+                        String branchprovince = CommonFunctions.parseXML(item.getXMLDetails(), "branchprovince").equals(".") ? "" : CommonFunctions.parseXML(item.getXMLDetails(), "branchprovince");
+                        String branchzip = CommonFunctions.parseXML(item.getXMLDetails(), "branchzip").equals(".") ? "" : CommonFunctions.parseXML(item.getXMLDetails(), "branchzip");
+                        String branchcountry = CommonFunctions.parseXML(item.getXMLDetails(), "branchcountry").equals(".") ? "" : CommonFunctions.parseXML(item.getXMLDetails(), "branchcountry");
+                        String address = branchstreetaddress + ", " +
+                                branchcity + ", " +
+                                branchprovince + ", " +
+                                branchzip + ", " +
+                                branchcountry;
+
+                        txvbranchaddress.setText(CommonFunctions.setTypeFace(getViewContext(), "fonts/ElliotSans-Regular.ttf", capitalizeWord(address)));
+
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else if (item.getOrderType().equals("DELIVERY")) {
+                txvcharge.setVisibility(View.VISIBLE);
+                txvchargelabel.setVisibility(View.VISIBLE);
+                txvchargelabel.setText(CommonFunctions.setTypeFace(getViewContext(), "fonts/ElliotSans-Regular.ttf", "DELIVERY"));
+                txvcharge.setText(CommonFunctions.setTypeFace(getViewContext(), "fonts/ElliotSans-Bold.ttf", CommonFunctions.currencyFormatter(String.valueOf(item.getDeliveryCharge()))));
+                deliveryCharge = String.valueOf(item.getDeliveryCharge());
+                if (!mStatus.equals("UNASSIGNED") || !mStatus.equals("WAITING")) {
+                    pickupLayout.setVisibility(View.VISIBLE);
+                    txvPlabel.setText(CommonFunctions.setTypeFace(getViewContext(), "fonts/ElliotSans-Regular.ttf", "FULFILLED BY"));
+                } else {
+                    pickupLayout.setVisibility(View.GONE);
+                }
+
+                Log.d("antonhttp", "AccountType: " + new Gson().toJson(item.getAccountType()));
+
+//                try {
+                if (item.getAccountType().equals("BRANCH")) {
+                    String branchname = CommonFunctions.parseXML(item.getXMLDetails(), "branchname");
+                    String accountmobilenumber = CommonFunctions.parseXML(item.getXMLDetails(), "accountmobilenumber");
+                    txvbranchname.setText(CommonFunctions.setTypeFace(getViewContext(), "fonts/ElliotSans-Regular.ttf", branchname.toUpperCase()));
+                    txvbranchaddress.setText(CommonFunctions.setTypeFace(getViewContext(), "fonts/ElliotSans-Regular.ttf", accountmobilenumber.isEmpty() ? "" : accountmobilenumber.trim()));
+
+                    Log.d("antonhttp", "branchname: " + branchname);
+
+                    Log.d("antonhttp", "accountmobilenumber: " + accountmobilenumber);
+
+                    if ((branchname.isEmpty() && accountmobilenumber.isEmpty()) ||
+                            (branchname.equals("NONE") && accountmobilenumber.equals("NONE"))) {
+                        pickupLayout.setVisibility(View.GONE);
+                    } else {
+                        pickupLayout.setVisibility(View.VISIBLE);
+                    }
+
+                } else if (item.getAccountType().equals("PARTNER")) {
+                    String partnername = CommonFunctions.parseXML(item.getXMLDetails(), "partnername");
+                    String partnermobilenumber = CommonFunctions.parseXML(item.getXMLDetails(), "partnermobilenumber");
+                    txvbranchname.setText(CommonFunctions.setTypeFace(getViewContext(), "fonts/ElliotSans-Regular.ttf", partnername.toUpperCase()));
+                    txvbranchaddress.setText(CommonFunctions.setTypeFace(getViewContext(), "fonts/ElliotSans-Regular.ttf", partnermobilenumber.isEmpty() ? "" : "+".concat(partnermobilenumber)));
+
+                    if ((partnername.isEmpty() && partnermobilenumber.isEmpty()) ||
+                            (partnername.equals("NONE") && partnermobilenumber.equals("NONE"))) {
+                        pickupLayout.setVisibility(View.GONE);
+                    } else {
+                        pickupLayout.setVisibility(View.VISIBLE);
+                    }
+
+                } else if (item.getAccountType().equals(".")) {
+                    pickupLayout.setVisibility(View.GONE);
+                }
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+            }
+        } else {
+
+            setUpWholesalerStatus(item.getStatus());
+
+            WholesalerProfile wholesalerProfile = mdb.getWholesalerProfile();
+            if (orderstatus.equals("PENDING")) {
+                txndatetime.setText(CommonFunctions.setTypeFace(getViewContext(), "fonts/ElliotSans-Regular.ttf", CommonFunctions.parseOrderDate(item.getDateTimeIN()).toUpperCase()));
+            } else if (orderstatus.equals("COMPLETED")) {
+                txndatetime.setText(CommonFunctions.setTypeFace(getViewContext(), "fonts/ElliotSans-Regular.ttf", CommonFunctions.parseOrderDate(item.getCompletedDateTime()).toUpperCase()));
+            }
+
+            if (wholesalerProfile.getCompany().equals(".") || wholesalerProfile.getCompany().isEmpty()) {
+                txvorderdetailsname.setVisibility(View.GONE);
+            } else {
+                txvorderdetailsname.setText(CommonFunctions.setTypeFace(getViewContext(), "fonts/ElliotSans-Regular.ttf", wholesalerProfile.getCompany().equals(".") || wholesalerProfile.getCompany().isEmpty() ? "" : capitalizeWord(wholesalerProfile.getCompany())));
+            }
+
+            if (wholesalerProfile.getMobileNo().equals(".") || wholesalerProfile.getMobileNo().isEmpty()) {
+                txvmobilenumber.setVisibility(View.GONE);
+            } else {
+                txvmobilenumber.setText(CommonFunctions.setTypeFace(getViewContext(), "fonts/ElliotSans-Regular.ttf", wholesalerProfile.getMobileNo().equals(".") || wholesalerProfile.getMobileNo().isEmpty() ? "" : "+".concat(wholesalerProfile.getMobileNo())));
+            }
+
+            if (wholesalerProfile.getEmailAddress().equals(".") || wholesalerProfile.getEmailAddress().isEmpty()) {
+                txvemailaddress.setVisibility(View.GONE);
+            } else {
+                txvemailaddress.setText(CommonFunctions.setTypeFace(getViewContext(), "fonts/ElliotSans-Regular.ttf", wholesalerProfile.getEmailAddress().equals(".") || wholesalerProfile.getEmailAddress().isEmpty() ? "" : wholesalerProfile.getEmailAddress()));
+            }
+
+            if (wholesalerProfile.getAddress().length() > 1) {
+                String address = capitalizeWord(wholesalerProfile.getAddress());
+                txvaddress.setText(CommonFunctions.setTypeFace(getViewContext(), "fonts/ElliotSans-Regular.ttf", address));
+            } else {
+                txvaddress.setVisibility(View.GONE);
+            }
+
+            pickupLayout.setVisibility(View.GONE);
+
+        }
+    }
+
+    private void setUpWholesalerStatus(String status) {
+        String ordertitle = "";
+        switch (status) {
+            case "MODIFIED": {
+                ordertitle = status;
+                txvstatus.setTextColor(ContextCompat.getColor(getViewContext(), R.color.color_ff9502));
+                break;
+            }
+            case "DELETED": {
+                ordertitle = status;
+                txvstatus.setTextColor(ContextCompat.getColor(getViewContext(), R.color.color_212121));
+                break;
+            }
+            case "NO STOCK": {
+                ordertitle = status;
+                txvstatus.setTextColor(ContextCompat.getColor(getViewContext(), R.color.color_212121));
+                break;
+            }
+            case "FOR DELIVERY-PARTIAL": {
+                ordertitle = status;
+                txvstatus.setTextColor(ContextCompat.getColor(getViewContext(), R.color.color_06F5C0));
+                break;
+            }
+            case "FOR DELIVERY-COMPLETE": {
+                ordertitle = status;
+                txvstatus.setTextColor(ContextCompat.getColor(getViewContext(), R.color.color_1c9f05));
+                break;
+            }
+            case "RECEIVED BY CUSTOMER": {
+                ordertitle = status;
+                txvstatus.setTextColor(ContextCompat.getColor(getViewContext(), R.color.color_1c9f05));
+                break;
+            }
+            case "ONPROCESS": {
+                ordertitle = "ON PROCESS";
+                txvstatus.setTextColor(ContextCompat.getColor(getViewContext(), R.color.color_498fe1));
+                break;
+            }
+            default: {
+                ordertitle = status;
+                txvstatus.setTextColor(ContextCompat.getColor(getViewContext(), R.color.color_212121));
+                break;
+            }
+        }
+
+        txvstatus.setText(CommonFunctions.setTypeFace(getViewContext(), "fonts/ElliotSans-Bold.ttf", ordertitle));
+    }
+
+    private void setupOrderStatus(String status) {
+        String ordertitle;
+
+        mStatus = status;
+
+        switch (status) {
+            case "PAID": {
+                ordertitle = "FOR PROCESS";
+                txvstatus.setTextColor(ContextCompat.getColor(getViewContext(), R.color.color_f7e71b));
+                break;
+            }
+            case "ONHOLD": {
+                ordertitle = "ON HOLD";
+                txvstatus.setTextColor(ContextCompat.getColor(getViewContext(), R.color.color_ff00ff));
+                break;
+            }
+            case "FORPAYMENT": {
+                ordertitle = "FOR PAYMENT";
+                txvstatus.setTextColor(ContextCompat.getColor(getViewContext(), R.color.color_ff9502));
+                break;
+            }
+            case "FORPICKUP": {
+                ordertitle = "FOR PICKUP";
+                txvstatus.setTextColor(ContextCompat.getColor(getViewContext(), R.color.color_A2A2A2));
+                break;
+            }
+            case "ONPROCESS": {
+                ordertitle = "ON PROCESS";
+                txvstatus.setTextColor(ContextCompat.getColor(getViewContext(), R.color.color_498fe1));
+                break;
+            }
+            case "PENDING": {
+                ordertitle = "PENDING";
+                txvstatus.setTextColor(ContextCompat.getColor(getViewContext(), R.color.color_F83832));
+                break;
+            }
+            case "UNASSIGNED": {
+                ordertitle = "PENDING";
+                txvstatus.setTextColor(ContextCompat.getColor(getViewContext(), R.color.color_F83832));
+                break;
+            }
+            case "WAITING": {
+                ordertitle = "PENDING";
+                txvstatus.setTextColor(ContextCompat.getColor(getViewContext(), R.color.color_F83832));
+                break;
+            }
+            case "ADDED": {
+                ordertitle = "PENDING";
+                txvstatus.setTextColor(ContextCompat.getColor(getViewContext(), R.color.color_F83832));
+                break;
+            }
+            case "COMPLETED": {
+                ordertitle = "COMPLETED";
+                txvstatus.setTextColor(ContextCompat.getColor(getViewContext(), R.color.color_1c9f05));
+                break;
+            }
+            case "CANCELLED": {
+                ordertitle = "CANCELLED";
+                txvstatus.setTextColor(ContextCompat.getColor(getViewContext(), R.color.color_212121));
+                break;
+            }
+            case "DECLINED": {
+                ordertitle = "DECLINED";
+                txvstatus.setTextColor(ContextCompat.getColor(getViewContext(), R.color.color_212121));
+                break;
+            }
+            case "ONDELIVERY": {
+                ordertitle = "ON DELIVERY";
+                txvstatus.setTextColor(ContextCompat.getColor(getViewContext(), R.color.color_06F5C0));
+                break;
+            }
+            case "PARTIAL PAY": {
+                ordertitle = "PARTIAL PAID";
+                txvstatus.setTextColor(ContextCompat.getColor(getViewContext(), R.color.color_212121));
+                break;
+            }
+            default: {
+                ordertitle = "PROCESSING";
+                txvstatus.setTextColor(ContextCompat.getColor(getViewContext(), R.color.color_212121));
+                break;
+            }
+        }
+        txvstatus.setText(CommonFunctions.setTypeFace(getViewContext(), "fonts/ElliotSans-Bold.ttf", ordertitle));
+    }
+
+    private void setUpButtons() {
+        buttonslayout = findViewById(R.id.buttons);
+        buttonslayout.setVisibility(View.VISIBLE);
+
+        btnPay = findViewById(R.id.btnPay);
+        btnPay.setOnClickListener(this);
+        btnPay.setText(CommonFunctions.setTypeFace(getViewContext(), "fonts/ElliotSans-Regular.ttf", "PAY " + CommonFunctions.currencyFormatter(String.valueOf(ordersQueue.getTotalOrderAmount()))));
+
+        btnCancelWholeOrder = findViewById(R.id.btnCancelWholeOrder);
+        btnCancelWholeOrder.setOnClickListener(this);
+        btnCancelWholeOrder.setText(CommonFunctions.setTypeFace(getViewContext(), "fonts/ElliotSans-Regular.ttf", "Cancel Order"));
+
+        //=================
+        //SETUP DIALOGS
+        //=================
+        setUpCancelDialog();
+        setUpConfirmationDialog();
+        setUpSuccessDialog();
+        setUpPaymentOptionsDialog();
+        txvchargelabel.setVisibility(View.VISIBLE);
+        txvcharge.setVisibility(View.VISIBLE);
+
+        if ((status.equals("FORPAYMENT") || status.equals("PARTIALPAY"))) {
+            btnPay.setVisibility(View.VISIBLE);
+        } else {
+            btnPay.setVisibility(View.GONE);
+        }
+
+        if (status.equals("FORPAYMENT") ||
+                status.equals("PARTIALPAY") ||
+                status.equals("UNASSIGNED") ||
+                status.equals("WAITING") ||
+                status.equals("ADDED") ||
+                status.equals("PENDING")) {
+            btnCancelWholeOrder.setVisibility(View.VISIBLE);
+        } else {
+            btnCancelWholeOrder.setVisibility(View.GONE);
+        }
+
+    }
+
+    private void setUpRecyclerView() {
+        recyclerView = findViewById(R.id.recycler_view_my_orders);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getViewContext()));
+        recyclerView.setNestedScrollingEnabled(false);
+
+        if(usertype.equals("CONSUMER")){
+            getOrderDetails();
+        }else {
+            mOrdersItemDetailsAdapter = new MyOrdersItemDetailsRecyclerAdapter(getViewContext(), mdb.getOrderDetailsForTxnId(orderstatus,ordertxnid), status, usertype);
+            recyclerView.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getViewContext(), R.drawable.recycler_divider)));
+            recyclerView.setAdapter(mOrdersItemDetailsAdapter);
+        }
+
+    }
+
+    private void setUpToolbarTitle() {
+        String ordertitle;
+        switch (status) {
+            case "PAID": {
+                ordertitle = "For Process";
+                break;
+            }
+            case "ONHOLD": {
+                ordertitle = "On Hold";
+                break;
+            }
+            case "FORPAYMENT": {
+                ordertitle = "For Payment";
+                break;
+            }
+            case "FORPICKUP": {
+                ordertitle = "For Pickup";
+                break;
+            }
+            case "ONPROCESS": {
+                ordertitle = "On Process";
+                break;
+            }
+            case "PENDING": {
+                ordertitle = "Pending";
+                break;
+            }
+            case "COMPLETED": {
+                ordertitle = "Completed";
+                break;
+            }
+            case "CANCELLED": {
+                ordertitle = "Cancelled";
+                break;
+            }
+            case "DECLINED": {
+                ordertitle = "Declined";
+                break;
+            }
+            default: {
+                ordertitle = mTitle;
+                break;
+            }
+        }
+        setTitle(CommonFunctions.setTypeFace(getViewContext(), "fonts/ElliotSans-Medium.ttf", ordertitle));
+    }
+
+    private void setUpCancelDialog() {
+        mCancelDialog = new MaterialDialog.Builder(getViewContext())
+                .cancelable(false)
+                .customView(R.layout.dialog_cancel_order, false)
+                .build();
+        View view = mCancelDialog.getCustomView();
+
+        TextView txvTitle = view.findViewById(R.id.title);
+        txvTitle.setText("CANCEL ORDER");
+
+        txvPreBalance = view.findViewById(R.id.txvPreBalance);
+        txvAmountRefunded = view.findViewById(R.id.txvAmountRefunded);
+        txvPostBalance = view.findViewById(R.id.txvPostBalance);
+
+        TextView txvClose = view.findViewById(R.id.txvCancelClose);
+        txvClose.setOnClickListener(this);
+        TextView txvProceed = view.findViewById(R.id.txvCancelProceed);
+        txvProceed.setOnClickListener(this);
+
+        TextView label = view.findViewById(R.id.label);
+        label.setText(CommonFunctions.setTypeFace(getViewContext(), "fonts/ElliotSans-Regular.ttf", "REASON"));
+        instructions = view.findViewById(R.id.instructions);
+    }
+
+    private void setUpPaymentOptionsDialog() {
+        mPaymentOptionsDialog = new MaterialDialog.Builder(getViewContext())
+                .cancelable(true)
+                .customView(R.layout.dialog_payment_options, false)
+                .build();
+
+        View view = mPaymentOptionsDialog.getCustomView();
+
+        view.findViewById(R.id.cardOption).setOnClickListener(this);
+        view.findViewById(R.id.walletOption).setOnClickListener(this);
+        view.findViewById(R.id.cashOption).setOnClickListener(this);
+        view.findViewById(R.id.paymayaOption).setOnClickListener(this);
+        view.findViewById(R.id.upayOption).setOnClickListener(this);
+
+        TextView txvTitle = view.findViewById(R.id.title);
+        TextView txvCardLabel = view.findViewById(R.id.txvCardLabel);
+        TextView txvMasterCard = view.findViewById(R.id.txvMasterCard);
+        TextView txvVisa = view.findViewById(R.id.txvVisa);
+        TextView txvWalletLabel = view.findViewById(R.id.txvWalletLabel);
+        txvWalletBalance = view.findViewById(R.id.txvWalletBalance);
+
+        //new payment option
+
+
+        txvTitle.setText(CommonFunctions.setTypeFace(getViewContext(), "fonts/ElliotSans-Bold.ttf", "Payment Options"));
+        txvCardLabel.setText(CommonFunctions.setTypeFace(getViewContext(), "fonts/ElliotSans-Bold.ttf", "CREDIT CARD"));
+        txvMasterCard.setText(CommonFunctions.setTypeFace(getViewContext(), "fonts/ElliotSans-Medium.ttf", "Master Card"));
+        txvVisa.setText(CommonFunctions.setTypeFace(getViewContext(), "fonts/ElliotSans-Medium.ttf", "Visa"));
+        txvWalletLabel.setText(CommonFunctions.setTypeFace(getViewContext(), "fonts/ElliotSans-Bold.ttf", "WALLET"));
+
+        String balance = "Bal: ".concat(CommonFunctions.currencyFormatter(String.valueOf(mdb.getConsumerTotalWallet())));
+        txvWalletBalance.setText(CommonFunctions.setTypeFace(getViewContext(), "fonts/ElliotSans-Medium.ttf", balance));
+    }
+
+    private void setUpConfirmationDialog() {
+        mConfirmationDialog = new MaterialDialog.Builder(getViewContext())
+                .cancelable(false)
+                .customView(R.layout.dialog_confirmation_order_payment, false)
+                .build();
+        View view = mConfirmationDialog.getCustomView();
+
+    }
+
+    private void setUpSuccessDialog() {
+        mDialog = new MaterialDialog.Builder(getViewContext())
+                .cancelable(false)
+                .customView(R.layout.dialog_success_confirm_order_payment, false)
+                .build();
+        View view = mDialog.getCustomView();
+        TextView txvclose = view.findViewById(R.id.txvcloseorderdialog);
+        txvclose.setOnClickListener(this);
+
+        deliveryChargeLayout = view.findViewById(R.id.deliveryChargeLayout);
+        txvTxnId = view.findViewById(R.id.txvtxnid);
+        txvTotalAmount = view.findViewById(R.id.txvtotalamount);
+        txvAmountPaid = view.findViewById(R.id.txvAmountPaid);
+        txvDeliveryCharge = view.findViewById(R.id.txvDeliveryCharge);
+        txvPaymentOption = view.findViewById(R.id.txvPaymentOption);
+    }
+
+    //    NOTES:
+//    removed PENDING
+//    removed FORPAYMENT
+    private void setUpPaymentDetails(String status) {
+        if (status.equals("ONPROCESS")
+                || status.equals("COMPLETED")
+                || status.equals("ONDELIVERY")
+                || status.equals("PARTIALPAY")
+                || status.equals("FORPAYMENT")
+                || status.equals("PAID")) {
+
+//            if (mdb.isOrderPaymentExist(ordertxnid)) {
+//                setUpPaymentLayout(mdb.getOrderPaymentsList(ordertxnid));
+//            } else {
+            getSession();
+//            }
+
+        } else {
+            payment_details_layout.setVisibility(View.GONE);
+        }
+    }
+
+    private void setUpPaymentLayout(List<OrderPayments> paymentsList) {
+        if (paymentsList.size() > 0) {
+            payment_details_layout.setVisibility(View.VISIBLE);
+        } else {
+            payment_details_layout.setVisibility(View.GONE);
+        }
+        String mTitle = "";
+
+        if (status.equals("FORPAYMENT") || status.equals("PARTIALPAY")) {
+            mTitle = "PREVIOUS PAYMENT DETAILS";
+        } else {
+            mTitle = "PAYMENT DETAILS";
+        }
+
+        mPaymentsAdapter.clear();
+
+        mPaymentsAdapter.setPaymentsData(paymentsList);
+
+        totalPaymentAmount = mdb.getOrderPaymentsAmountPaid(ordertxnid);
+        paymentdetailslabel.setText(CommonFunctions.setTypeFace(getViewContext(), "fonts/ElliotSans-Regular.ttf", mTitle));
+
+        if (usertype.equals("CONSUMER") &&
+                (status.equals("FORPAYMENT") ||
+                        status.equals("PARTIALPAY"))) {
+
+            btnPay.setText(CommonFunctions.setTypeFace(getViewContext(), "fonts/ElliotSans-Regular.ttf", "PAY " + CommonFunctions.currencyFormatter(String.valueOf(totalOrderAmount))));
+        }
+    }
+
+    private void getSession() {
+        if (CommonFunctions.getConnectivityStatus(getViewContext()) > 0) {
+            //API CALL
+            mSmoothProgressBar.setVisibility(View.VISIBLE);
+            createSession(callPaymentSession);
+        } else {
+            payment_details_layout.setVisibility(View.GONE);
+            showError(getString(R.string.generic_internet_error_message));
+        }
+    }
+
+    private final Callback<GetSessionResponse> callPaymentSession = new Callback<GetSessionResponse>() {
+
+        @Override
+        public void onResponse(Call<GetSessionResponse> call, Response<GetSessionResponse> response) {
+            ResponseBody errorBody = response.errorBody();
+            if (errorBody == null) {
+                if (response.body().getStatus().equals("000")) {
+                    sessionid = response.body().getSession();
+                    authcode = CommonFunctions.getSha1Hex(imei + sessionid + customerid);
+                    if (isWallet) {
+                        getWallet();
+                    } else {
+                        getPayments(getPaymentsSession);
+                    }
+                } else {
+                    payment_details_layout.setVisibility(View.GONE);
+                    mSmoothProgressBar.setVisibility(View.GONE);
+                    openErrorDialog(response.body().getMessage());
+                }
+            } else {
+                payment_details_layout.setVisibility(View.GONE);
+                mSmoothProgressBar.setVisibility(View.GONE);
+                openErrorDialog("Something went wrong with the server.");
+            }
+        }
+
+        @Override
+        public void onFailure(Call<GetSessionResponse> call, Throwable t) {
+            //hideProgressDialog();
+            mSmoothProgressBar.setVisibility(View.GONE);
+            payment_details_layout.setVisibility(View.GONE);
+            openErrorDialog("Something went wrong with the server.");
+        }
+    };
+
+    private void getPayments(Callback<GetPaymentsResponse> getPaymentsCallback) {
+        Call<GetPaymentsResponse> getpayments = RetrofitBuild.getPaymentsService(getViewContext())
+                .getPaymentsCall(imei,
+                        authcode,
+                        sessionid,
+                        customerid,
+                        usertype,
+                        userid,
+                        String.valueOf(year),
+                        String.valueOf(month));
+        getpayments.enqueue(getPaymentsCallback);
+    }
+
+    private final Callback<GetPaymentsResponse> getPaymentsSession = new Callback<GetPaymentsResponse>() {
+
+        @Override
+        public void onResponse(Call<GetPaymentsResponse> call, Response<GetPaymentsResponse> response) {
+            mSmoothProgressBar.setVisibility(View.GONE);
+            ResponseBody errorBody = response.errorBody();
+            if (errorBody == null) {
+                if (response.body().getStatus().equals("000")) {
+                    //clean table
+                    mdb.truncateTable(UltramegaShopUtilities.TABLE_ORDER_PAYMENTS);
+
+                    //insert queue payments
+                    List<OrderPayments> orderPaymentsQueue = response.body().getOrderPayments();
+                    for (OrderPayments payments : orderPaymentsQueue) {
+                        mdb.insertOrderPayments(payments);
+                    }
+
+                    Log.d("okhttp","PAYMENT OPTION: "+paymentOption);
+
+                    //insert history payments
+                    List<OrderPayments> orderPaymentsHist = response.body().getOrderPaymentsHist();
+                    for (OrderPayments payments : orderPaymentsHist) {
+                        mdb.insertOrderPayments(payments);
+                    }
+
+                    //set data layout
+                    setUpPaymentLayout(mdb.getOrderPaymentsList(ordertxnid));
+
+                } else if (response.body().getStatus().equals("004")) {
+
+                    forceLogoutDialog("Invalid User");
+
+                } else {
+                    payment_details_layout.setVisibility(View.GONE);
+                    openErrorDialog(response.body().getMessage());
+                }
+            } else {
+                payment_details_layout.setVisibility(View.GONE);
+                openErrorDialog("Something went wrong with the server.");
+            }
+        }
+
+        @Override
+        public void onFailure(Call<GetPaymentsResponse> call, Throwable t) {
+            mSmoothProgressBar.setVisibility(View.GONE);
+            payment_details_layout.setVisibility(View.GONE);
+            openErrorDialog("Something went wrong with the server.");
+        }
+    };
+
+    public void deleteIndividualOrder() {
+        mOrdersItemDetailsAdapter.cancelindividualorder();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public static void start(Context context, OrdersQueue item, String mTitle) {
+        Intent intent = new Intent(context, ViewMyOrdersDetailsActivity.class);
+        intent.putExtra("item", item);
+        intent.putExtra("title", mTitle);
+        context.startActivity(intent);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btnPay: {
+
+                paymentRedirection();
+//
+//                if (mdb.getConsumerTotalWallet() + totalPaymentAmount < totalOrderAmount) {
+//                    openReloadWalletDialog("You don't have enough funds in your wallet");
+//                } else {
+//                    openPayOrderDialog("Are you sure you want to pay this order?");
+//                }
+                break;
+            }
+            case R.id.btnCancelWholeOrder: {
+
+                String message = "Are you sure you want to cancel order TXN# " + ordertxnid + "?";
+                openCancelWholeOrderDialog(message);
+
+                break;
+            }
+            case R.id.txvClose: {
+                mConfirmationDialog.dismiss();
+                break;
+            }
+            case R.id.txvProceed: {
+                //API CALL
+                mConfirmationDialog.dismiss();
+                getConfirmSession();
+                break;
+            }
+            case R.id.txvcloseorderdialog: {
+                mDialog.dismiss();
+
+                if (orderPayments.getPaymentStatus().equals("PAID")) {
+                    Intent intent = new Intent(getViewContext(), MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("index", 3);
+                    startActivity(intent);
+                }
+
+                break;
+            }
+            case R.id.txvCancelProceed: {
+                mCancelDialog.dismiss();
+                getCancelSession();
+                break;
+            }
+            case R.id.txvCancelClose: {
+                mCancelDialog.dismiss();
+
+                break;
+            }
+            case R.id.cardOption: {
+
+                mPaymentOptionsDialog.dismiss();
+                progressDialog();
+                createSession(sessionCallback);
+
+                break;
+            }
+            case R.id.walletOption: {
+
+                mPaymentOptionsDialog.dismiss();
+
+                if (mdb.getConsumerTotalWallet() == 0) {
+                    ReloadWalletActivity.start(getViewContext());
+                } else {
+                    openPayOrderDialog("Are you sure you want to pay this order?");
+                }
+
+                break;
+            }
+
+
+        }
+    }
+
+    @SuppressLint("DefaultLocale")
+    private void paymentRedirection() {
+        switch (paymentOption){
+            case "CARD":
+
+                DecimalFormat df = new DecimalFormat("#.##");
+
+                Log.d("vieworder", "ref#: " + ordertxnid);
+                Log.d("vieworder", "totalamount: " + df.format((totalOrderAmount - totalPaymentAmount)));
+                Log.d("vieworder", "userinfo: " + new Gson().toJson(mdb.getConsumerProfile()));
+                Log.d("vieworder", "items: " + new Gson().toJson(orderDetails));
+                Log.d("vieworder", "deliverycharge: " + delivereefee);
+
+                Intent intent = new Intent(this, PaymayaRedirectionActivity.class);
+                intent.putExtra("referencenumber",ordertxnid);
+                intent.putExtra("totalamount",df.format((totalOrderAmount - totalPaymentAmount)));
+                intent.putExtra("userinfo",new Gson().toJson(mdb.getConsumerProfile()));
+                intent.putExtra("items", new Gson().toJson(orderDetails));
+                intent.putExtra("deliveryCharge",deliveryCharge);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                break;
+            case "CASH":
+                openPayOrderDialog("Are you sure you want to pay this order?");
+                break;
+
+            case "UPAY":
+                setUpUPayPaymentOptionsDialog();
+                break;
+        }
+    }
+
+    private Callback<GetSessionResponse> sessionCallback = new Callback<GetSessionResponse>() {
+        @Override
+        public void onResponse(Call<GetSessionResponse> call, Response<GetSessionResponse> response) {
+            ResponseBody errBody = response.errorBody();
+            if (errBody == null) {
+                if (response.body().getStatus().equals("000")) {
+                    sessionid = response.body().getSession();
+                    reloadConsumerWalletViaPesoPay();
+                } else {
+                    hideProgressDialog();
+                    showError(response.body().getMessage());
+                }
+            } else {
+                hideProgressDialog();
+                showError(getString(R.string.generic_internet_error_message));
+            }
+        }
+
+        @Override
+        public void onFailure(Call<GetSessionResponse> call, Throwable t) {
+            hideProgressDialog();
+            showError(getString(R.string.generic_internet_error_message));
+        }
+    };
+
+    private void reloadConsumerWalletViaPesoPay() {
+        Call<PesoPayDataResponse> call = RetrofitBuild.reloadConsumerWalletService(getViewContext())
+                .reloadConsumerWalletViaPesoPay(
+                        mdb.getConsumerID(),
+                        mdb.getConsumerProfile().getUserID(),
+                        CommonFunctions.getSha1Hex(CommonFunctions.getIMEI(getViewContext()) + mdb.getConsumerProfile().getUserID() + sessionid),
+                        CommonFunctions.getIMEI(getViewContext()),
+                        sessionid,
+                        mdb.getConsumerProfile().getFirstName() + " " + mdb.getConsumerProfile().getLastName(),
+                        ".",
+                        "CARD",
+                        String.valueOf(totalOrderAmount - totalPaymentAmount));
+
+        call.enqueue(reloadConsumerWalletViaPesoPayCallback);
+    }
+
+    private Callback<PesoPayDataResponse> reloadConsumerWalletViaPesoPayCallback = new Callback<PesoPayDataResponse>() {
+        @Override
+        public void onResponse(Call<PesoPayDataResponse> call, Response<PesoPayDataResponse> response) {
+            hideProgressDialog();
+            ResponseBody errBody = response.errorBody();
+            if (errBody == null) {
+                if (response.body().getStatus().equals("000")) {
+                    PesoPay pesoPay = response.body().getPesoPay();
+                    String paymentTxnNo = response.body().getPaymenttxnno();
+                    String url = response.body().getUrl();
+
+                    finish();
+                    PesoPayWebViewActivity.start(getViewContext(), pesoPay, ordertxnid, url, String.valueOf(totalOrderAmount - totalPaymentAmount), true);
+
+                } else if (response.body().getStatus().equals("004")) {
+
+                    forceLogoutDialog("Invalid User");
+
+                } else {
+                    showError(response.body().getMessage());
+                }
+            } else {
+                showError(getString(R.string.generic_internet_error_message));
+            }
+
+        }
+
+        @Override
+        public void onFailure(Call<PesoPayDataResponse> call, Throwable t) {
+            hideProgressDialog();
+            showError(getString(R.string.generic_internet_error_message));
+        }
+    };
+
+    private void getCancelSession() {
+        if (CommonFunctions.getConnectivityStatus(getViewContext()) > 0) {
+            //API CALL
+            progressDialog();
+            mSmoothProgressBar.setVisibility(View.VISIBLE);
+            createSession(callCancelOrderSession);
+        } else {
+            payment_details_layout.setVisibility(View.GONE);
+            showError(getString(R.string.generic_internet_error_message));
+        }
+    }
+
+    public final Callback<GetSessionResponse> callCancelOrderSession = new Callback<GetSessionResponse>() {
+
+        @Override
+        public void onResponse(Call<GetSessionResponse> call, Response<GetSessionResponse> response) {
+            ResponseBody errorBody = response.errorBody();
+            if (errorBody == null) {
+                if (response.body().getStatus().equals("000")) {
+                    sessionid = response.body().getSession();
+                    authcode = CommonFunctions.getSha1Hex(imei + sessionid + customerid);
+                    cancelTransaction(cancelTransactionSession);
+                } else {
+                    hideProgressDialog();
+                    mSmoothProgressBar.setVisibility(View.GONE);
+                    openErrorDialog(response.body().getMessage());
+                }
+            } else {
+                hideProgressDialog();
+                mSmoothProgressBar.setVisibility(View.GONE);
+                openErrorDialog("Something went wrong with the server.");
+            }
+        }
+
+        @Override
+        public void onFailure(Call<GetSessionResponse> call, Throwable t) {
+            hideProgressDialog();
+            mSmoothProgressBar.setVisibility(View.GONE);
+            openErrorDialog("Something went wrong with the server.");
+        }
+    };
+
+    private void cancelTransaction(Callback<CancelTransactionResponse> cancelTransactionCallback) {
+        String reason = instructions.getText().toString().trim().equals(".") || instructions.getText().toString().trim().isEmpty() ? "." : instructions.getText().toString().trim();
+        Call<CancelTransactionResponse> cancelTransaction = RetrofitBuild.cancelTransactionService(getViewContext())
+                .cancelTransactionCall(imei,
+                        authcode,
+                        sessionid,
+                        customerid,
+                        usertype,
+                        userid,
+                        ordertxnid,
+                        reason);
+        cancelTransaction.enqueue(cancelTransactionCallback);
+    }
+
+    private final Callback<CancelTransactionResponse> cancelTransactionSession = new Callback<CancelTransactionResponse>() {
+
+        @Override
+        public void onResponse(Call<CancelTransactionResponse> call, Response<CancelTransactionResponse> response) {
+            ResponseBody errorBody = response.errorBody();
+            if (errorBody == null) {
+                evaluateCancelTransaction(response);
+            } else {
+                hideProgressDialog();
+                mSmoothProgressBar.setVisibility(View.GONE);
+                openErrorDialog("Something went wrong with the server.");
+            }
+        }
+
+        @Override
+        public void onFailure(Call<CancelTransactionResponse> call, Throwable t) {
+            hideProgressDialog();
+            mSmoothProgressBar.setVisibility(View.GONE);
+            openErrorDialog("Something went wrong with the server.");
+        }
+    };
+
+    private void evaluateCancelTransaction(Response<CancelTransactionResponse> response) {
+        switch (response.body().getStatus()) {
+            case "000": {
+
+                currentActionStatus = "CANCEL";
+                createSession(callsession);
+
+                break;
+            }
+            case "004": {
+
+                forceLogoutDialog("Invalid User");
+
+                break;
+            }
+            default: {
+                mSmoothProgressBar.setVisibility(View.GONE);
+                hideProgressDialog();
+                openErrorDialog(response.body().getMessage());
+                break;
+            }
+        }
+    }
+
+    private void openCancelWholeOrderDialog(String message) {
+        new MaterialDialog.Builder(getViewContext())
+                .content(message)
+                .cancelable(false)
+                .positiveText("Proceed")
+                .negativeText("Close")
+                .contentColorRes(R.color.color_2C2C2C)
+                .positiveColorRes(R.color.color_FC503F)
+                .negativeColorRes(R.color.color_2C2C2C)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        mCancelDialog.show();
+                        OrderPayments orderPayments = mdb.getOrderPayments(ordertxnid);
+                        txvPreBalance.setText(CommonFunctions.currencyFormatter(String.valueOf(mdb.getConsumerTotalWallet())));
+                        txvAmountRefunded.setText(CommonFunctions.currencyFormatter(String.valueOf(orderPayments.getAmountPaid())));
+                        txvPostBalance.setText(CommonFunctions.currencyFormatter(String.valueOf(mdb.getConsumerTotalWallet() + orderPayments.getAmountPaid())));
+                    }
+                })
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                    }
+                })
+                .show();
+    }
+
+    private void getConfirmSession() {
+        if (CommonFunctions.getConnectivityStatus(getViewContext()) > 0) {
+            //API CALL
+            progressDialog();
+            mSmoothProgressBar.setVisibility(View.VISIBLE);
+            createSession(callConfirmOrderSession);
+        } else {
+            payment_details_layout.setVisibility(View.GONE);
+            showError(getString(R.string.generic_internet_error_message));
+        }
+    }
+
+    public final Callback<GetSessionResponse> callConfirmOrderSession = new Callback<GetSessionResponse>() {
+
+        @Override
+        public void onResponse(Call<GetSessionResponse> call, Response<GetSessionResponse> response) {
+            ResponseBody errorBody = response.errorBody();
+            if (errorBody == null) {
+                if (response.body().getStatus().equals("000")) {
+                    sessionid = response.body().getSession();
+                    authcode = CommonFunctions.getSha1Hex(imei + sessionid + customerid);
+                    confirmOrderChanges(confirmOrderChangesSession);
+                } else {
+                    hideProgressDialog();
+                    mSmoothProgressBar.setVisibility(View.GONE);
+                    openErrorDialog(response.body().getMessage());
+                }
+            } else {
+                hideProgressDialog();
+                mSmoothProgressBar.setVisibility(View.GONE);
+                openErrorDialog("Something went wrong with the server.");
+            }
+        }
+
+        @Override
+        public void onFailure(Call<GetSessionResponse> call, Throwable t) {
+            hideProgressDialog();
+            mSmoothProgressBar.setVisibility(View.GONE);
+            openErrorDialog("Something went wrong with the server.");
+        }
+    };
+
+    private void confirmOrderChanges(Callback<ConfirmOrderChangesResponse> confirmOrderChangesCallback) {
+        Call<ConfirmOrderChangesResponse> confirmOrderChanges = RetrofitBuild.confirmOrderChangesService(getViewContext())
+                .confirmOrderChangesCall(imei,
+                        authcode,
+                        sessionid,
+                        customerid,
+                        usertype,
+                        userid,
+                        ordertxnid);
+        confirmOrderChanges.enqueue(confirmOrderChangesCallback);
+    }
+
+    private final Callback<ConfirmOrderChangesResponse> confirmOrderChangesSession = new Callback<ConfirmOrderChangesResponse>() {
+
+        @Override
+        public void onResponse(Call<ConfirmOrderChangesResponse> call, Response<ConfirmOrderChangesResponse> response) {
+            ResponseBody errorBody = response.errorBody();
+            if (errorBody == null) {
+                evaluateConfirmOrderResponse(response);
+            } else {
+                hideProgressDialog();
+                mSmoothProgressBar.setVisibility(View.GONE);
+                openErrorDialog("Something went wrong with the server.");
+            }
+        }
+
+        @Override
+        public void onFailure(Call<ConfirmOrderChangesResponse> call, Throwable t) {
+            hideProgressDialog();
+            mSmoothProgressBar.setVisibility(View.GONE);
+            openErrorDialog("Something went wrong with the server.");
+        }
+    };
+
+    private void evaluateConfirmOrderResponse(Response<ConfirmOrderChangesResponse> response) {
+        switch (response.body().getStatus()) {
+            case "000": {
+
+                orderPayments = response.body().getOrderPayments();
+                mdb.insertOrderPayments(orderPayments);
+
+                setUpPaymentLayout(mdb.getOrderPaymentsList(ordertxnid));
+
+                currentActionStatus = "PAY";
+
+                createSession(callsession);
+
+                break;
+            }
+            case "004": {
+
+                hideProgressDialog();
+                forceLogoutDialog("Invalid User");
+
+                break;
+            }
+            case "006": {
+
+                new MaterialDialog.Builder(getViewContext())
+                        .content(response.body().getMessage())
+                        .cancelable(false)
+                        .positiveText("OK")
+                        .contentColorRes(R.color.color_2C2C2C)
+                        .positiveColorRes(R.color.colorAccent)
+                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                isWallet = true;
+                                getSession();
+                            }
+                        })
+                        .show();
+
+                break;
+            }
+            default: {
+                mSmoothProgressBar.setVisibility(View.GONE);
+                hideProgressDialog();
+                openErrorDialog(response.body().getMessage());
+                break;
+            }
+        }
+    }
+
+    private void openPayOrderDialog(String message) {
+        MaterialDialog dialog = new MaterialDialog.Builder(getViewContext())
+                .content(message)
+                .cancelable(false)
+                .positiveText("Ok")
+                .negativeText("Close")
+                .contentColorRes(R.color.color_2C2C2C)
+                .positiveColorRes(R.color.color_FC503F)
+                .negativeColorRes(R.color.color_2C2C2C)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                        getConfirmSession();
+
+                    }
+                })
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                    }
+                })
+                .show();
+    }
+
+
+    private final Callback<GetSessionResponse> callsession = new Callback<GetSessionResponse>() {
+
+        @Override
+        public void onResponse(Call<GetSessionResponse> call, Response<GetSessionResponse> response) {
+            ResponseBody errorBody = response.errorBody();
+            if (errorBody == null) {
+                if (response.body().getStatus().equals("000")) {
+                    sessionid = response.body().getSession();
+                    authcode = CommonFunctions.getSha1Hex(imei + sessionid + customerid);
+                    getOrdersQueue(getOrdersQueueSession);
+                    getWallet();
+                } else {
+                    hideProgressDialog();
+                    mSmoothProgressBar.setVisibility(View.GONE);
+                    openErrorDialog(response.body().getMessage());
+                }
+            } else {
+                hideProgressDialog();
+                mSmoothProgressBar.setVisibility(View.GONE);
+                openErrorDialog("Something went wrong with the server.");
+            }
+        }
+
+        @Override
+        public void onFailure(Call<GetSessionResponse> call, Throwable t) {
+            openErrorDialog("Something went wrongwith the server.");
+            mSmoothProgressBar.setVisibility(View.GONE);
+            hideProgressDialog();
+        }
+    };
+
+    private void getOrdersQueue(Callback<GetOrdersQueueResponse> getOrdersQueueCallback) {
+        Log.d("roneldayanan","GetORDERS QUEUE 2");
+        Call<GetOrdersQueueResponse> fetchitems = RetrofitBuild.getOrdersQueueService(getViewContext())
+                .getOrdersQueueCall(imei,
+                        authcode,
+                        sessionid,
+                        customerid,
+                        usertype,
+                        String.valueOf(limit),
+                        userid,
+                        Calendar.getInstance().get(Calendar.YEAR),
+                        Calendar.getInstance().get(Calendar.MONTH) + 1);
+        fetchitems.enqueue(getOrdersQueueCallback);
+    }
+
+    private final Callback<GetOrdersQueueResponse> getOrdersQueueSession = new Callback<GetOrdersQueueResponse>() {
+
+        @Override
+        public void onResponse(Call<GetOrdersQueueResponse> call, Response<GetOrdersQueueResponse> response) {
+            ResponseBody errorBody = response.errorBody();
+            if (errorBody == null) {
+                if (response.body().getStatus().equals("000")) {
+                    mdb.truncateTable(UltramegaShopUtilities.TABLE_ORDERS_QUEUE);
+                    //List<OrdersQueue> orderitems = response.body().getOrdersQueue();
+                    List<OrdersQueue> orderitems = response.body().getData();
+                    for (OrdersQueue order : orderitems) {
+                        //======================================
+                        // VALIDATE DATA PASSED FROM THE SERVER
+                        //======================================
+                        try {
+                            if (!(order.getStatus().matches(".*\\d.*") || order.getStatus().equals("CANCELLED") || order.getStatus().equals("COMPLETED"))) {
+                                mdb.insertOrdersQueue(order, usertype);
+                            }
+                        }catch (NullPointerException e){
+                            e.printStackTrace();
+                        }
+                    }
+                    getOrdersHistory(getOrdersHistorySession);
+
+                } else if (response.body().getStatus().equals("004")) {
+
+                    hideProgressDialog();
+                    forceLogoutDialog("Invalid User");
+
+                } else {
+                    hideProgressDialog();
+                    openErrorDialog(response.body().getMessage());
+                }
+            } else {
+                hideProgressDialog();
+                openErrorDialog("Something went wrong with the server.");
+            }
+        }
+
+        @Override
+        public void onFailure(Call<GetOrdersQueueResponse> call, Throwable t) {
+            hideProgressDialog();
+            mSmoothProgressBar.setVisibility(View.GONE);
+            openErrorDialog("Something went wrong with the server.");
+        }
+    };
+
+    private void getOrdersHistory(Callback<GetOrdersQueueResponse> getOrdersHistoryCallback) {
+        Call<GetOrdersQueueResponse> fetchitems = RetrofitBuild.getOrdersQueueService(getViewContext())
+                .getOrdersHistoryCall(
+                        imei,
+                        authcode,
+                        sessionid,
+                        customerid,
+                        usertype,
+                        "0",
+                        userid,
+                        Calendar.getInstance().get(Calendar.YEAR),
+                        Calendar.getInstance().get(Calendar.MONTH) + 1,
+                        String.valueOf(false));
+        fetchitems.enqueue(getOrdersHistoryCallback);
+    }
+
+    private final Callback<GetOrdersQueueResponse> getOrdersHistorySession = new Callback<GetOrdersQueueResponse>() {
+
+        @Override
+        public void onResponse(Call<GetOrdersQueueResponse> call, Response<GetOrdersQueueResponse> response) {
+            ResponseBody errorBody = response.errorBody();
+            mSmoothProgressBar.setVisibility(View.GONE);
+            hideProgressDialog();
+
+            if (errorBody == null) {
+                if (response.body().getStatus().equals("000")) {
+                    mdb.truncateTable(UltramegaShopUtilities.TABLE_ORDERS_HISTORY);
+                    //List<OrdersQueue> orderitems = response.body().getOrdersQueue();
+                    List<OrdersQueue> orderitems = response.body().getData();
+                    for (OrdersQueue order : orderitems) {
+                        //======================================
+                        // VALIDATE DATA PASSED FROM THE SERVER
+                        //======================================
+                        if (order.getStatus().matches(".*\\d.*") || order.getStatus().equals("CANCELLED") || order.getStatus().equals("COMPLETED")) {
+                            mdb.insertOrdersHistory(order, usertype);
+                        }
+                    }
+
+                    if (currentActionStatus.equals("PAY")) {
+                        mDialog.show();
+
+                        if (orderPayments.getPaymentStatus().equals("PAID")) {
+                            deliveryChargeLayout.setVisibility(View.VISIBLE);
+                        } else {
+                            deliveryChargeLayout.setVisibility(View.GONE);
+                        }
+
+                        txvPaymentOption.setText(orderPayments.getPaymentOption());
+                        txvDeliveryCharge.setText(CommonFunctions.currencyFormatter(String.valueOf(orderPayments.getDeliveryCharge())));
+                        txvTxnId.setText(orderPayments.getPaymentTxnNo());
+                        txvTotalAmount.setText(CommonFunctions.currencyFormatter(String.valueOf(orderPayments.getTotalAmount())));
+                        txvAmountPaid.setText(CommonFunctions.currencyFormatter(String.valueOf(orderPayments.getAmountPaid())));
+                    } else if (currentActionStatus.equals("CANCEL")) {
+                        finish();
+                    }
+
+                } else if (response.body().getStatus().equals("004")) {
+
+                    forceLogoutDialog("Invalid User");
+
+                } else {
+                    showError(response.body().getMessage());
+                }
+            } else {
+                openErrorDialog("Something went wrong with the server.");
+            }
+        }
+
+        @Override
+        public void onFailure(Call<GetOrdersQueueResponse> call, Throwable t) {
+            hideProgressDialog();
+            mSmoothProgressBar.setVisibility(View.GONE);
+            openErrorDialog("Something went wrong with the server.");
+        }
+    };
+
+    private void getWallet() {
+        Call<GetConsumerWalletResponse> call = RetrofitBuild.getConsumerWalletService(getViewContext())
+                .getConsumerWalletCall(
+                        customerid,
+                        userid,
+                        CommonFunctions.getSha1Hex(imei + userid + sessionid),
+                        imei,
+                        sessionid);
+        call.enqueue(getWallet);
+    }
+
+    //ok na ni
+    private Callback<GetConsumerWalletResponse> getWallet = new Callback<GetConsumerWalletResponse>() {
+
+        @Override
+        public void onResponse(Call<GetConsumerWalletResponse> call, Response<GetConsumerWalletResponse> response) {
+            ResponseBody errorBody = response.errorBody();
+
+            mSmoothProgressBar.setVisibility(View.GONE);
+            isWallet = false;
+            hideProgressDialog();
+
+            if (errorBody == null) {
+                if (response.body().getStatus().equals("000")) {
+                    mdb.truncateTable(UltramegaShopUtilities.TABLE_CONSUMER_WALLET);
+                    List<ConsumerWallet> consumerwallet = response.body().getConsumerWallet();
+                    for (ConsumerWallet wallet : consumerwallet) {
+                        mdb.insertConsumerWallet(wallet);
+                    }
+
+                    String balance = "Bal: ".concat(CommonFunctions.currencyFormatter(String.valueOf(mdb.getConsumerTotalWallet())));
+                    txvWalletBalance.setText(CommonFunctions.setTypeFace(getViewContext(), "fonts/ElliotSans-Medium.ttf", balance));
+
+                } else {
+                    showError(response.body().getMessage());
+                }
+            }
+        }
+
+        @Override
+        public void onFailure(Call<GetConsumerWalletResponse> call, Throwable t) {
+            hideProgressDialog();
+            mSmoothProgressBar.setVisibility(View.GONE);
+            isWallet = false;
+            showError("Something went wrong with the server. Please try again later.");
+        }
+    };
+
+
+    //getOrderDetails
+    private void getOrderDetails(){
+        if (CommonFunctions.getConnectivityStatus(getViewContext()) > 0) {
+            //API CALL
+            mSmoothProgressBar.setVisibility(View.VISIBLE);
+            createSession(callOrderDetailsSession);
+        } else {
+            swipeRefreshLayoutVieworders.setRefreshing(false);
+            mSmoothProgressBar.setVisibility(View.GONE);
+            showError(getString(R.string.generic_internet_error_message));
+        }
+    }
+
+    private final Callback<GetSessionResponse> callOrderDetailsSession = new Callback<GetSessionResponse>() {
+
+        @Override
+        public void onResponse(Call<GetSessionResponse> call, Response<GetSessionResponse> response) {
+            ResponseBody errorBody = response.errorBody();
+            if (errorBody == null) {
+                if (response.body().getStatus().equals("000")) {
+                    sessionid = response.body().getSession();
+                    authcode = CommonFunctions.getSha1Hex(imei + sessionid + customerid);
+
+                    if(!(orderstatus.equals("CANCELLED") || orderstatus.equals("COMPLETED"))){
+                        getOrderDetailsSession();
+                    }else{
+                        getOrderDetailsHistorySession();
+                    }
+                } else {
+                    swipeRefreshLayoutVieworders.setRefreshing(false);
+                    mSmoothProgressBar.setVisibility(View.GONE);
+                    openErrorDialog(response.body().getMessage());
+                }
+            } else {
+                swipeRefreshLayoutVieworders.setRefreshing(false);
+                mSmoothProgressBar.setVisibility(View.GONE);
+                openErrorDialog("Something went wrong with the server.");
+            }
+        }
+
+        @Override
+        public void onFailure(Call<GetSessionResponse> call, Throwable t) {
+            //hideProgressDialog();
+            swipeRefreshLayoutVieworders.setRefreshing(false);
+            mSmoothProgressBar.setVisibility(View.GONE);
+            openErrorDialog("Something went wrong with the server.");
+        }
+    };
+
+    private void getOrderDetailsSession() {
+        Call<GetOrdersQueueResponse> call = RetrofitBuild.getOrdersQueueService(getViewContext())
+                .getOrderDetailsQueue(
+                        imei,
+                        userid,
+                        authcode,
+                        sessionid,
+                        customerid,
+                        ordertxnid,
+                        usertype
+                        );
+        call.enqueue(getOrderDetailsCallback);
+    }
+
+    private void getOrderDetailsHistorySession() {
+        Call<GetOrdersQueueResponse> call = RetrofitBuild.getOrdersQueueService(getViewContext())
+                .getOrderDetailsHistory(
+                        imei,
+                        userid,
+                        authcode,
+                        sessionid,
+                        customerid,
+                        ordertxnid,
+                        String.valueOf(limit),
+                        year,
+                        String.valueOf(Integer.parseInt(month)),
+                        usertype
+                );
+        call.enqueue(getOrderHistoryDetailsCallback);
+    }
+
+    private Callback<GetOrdersQueueResponse> getOrderDetailsCallback = new Callback<GetOrdersQueueResponse>() {
+
+        @Override
+        public void onResponse(@NotNull Call<GetOrdersQueueResponse> call, Response<GetOrdersQueueResponse> response) {
+            ResponseBody errorBody = response.errorBody();
+            mSmoothProgressBar.setVisibility(View.GONE);
+            isWallet = false;
+            hideProgressDialog();
+            swipeRefreshLayoutVieworders.setRefreshing(false);
+            if (errorBody == null) {
+                if (response.body().getStatus().equals("000")) {
+                    orderDetails= response.body().getData();
+                    if(orderDetails.size() > 0){
+                        mOrdersItemDetailsAdapter = new MyOrdersItemDetailsRecyclerAdapter(getViewContext(), orderDetails, status, usertype);
+                        recyclerView.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getViewContext(), R.drawable.recycler_divider)));
+                        recyclerView.setAdapter(mOrdersItemDetailsAdapter);
+                    }
+
+                } else {
+                    showError(response.body().getMessage());
+                }
+            }
+        }
+
+        @Override
+        public void onFailure(@NotNull Call<GetOrdersQueueResponse> call, Throwable t) {
+            t.printStackTrace();
+            hideProgressDialog();
+            swipeRefreshLayoutVieworders.setRefreshing(false);
+            mSmoothProgressBar.setVisibility(View.GONE);
+            showError(t.getMessage());
+
+        }
+    };
+
+    private Callback<GetOrdersQueueResponse> getOrderHistoryDetailsCallback = new Callback<GetOrdersQueueResponse>() {
+
+        @Override
+        public void onResponse(Call<GetOrdersQueueResponse> call, Response<GetOrdersQueueResponse> response) {
+            ResponseBody errorBody = response.errorBody();
+
+            mSmoothProgressBar.setVisibility(View.GONE);
+            isWallet = false;
+            hideProgressDialog();
+            swipeRefreshLayoutVieworders.setRefreshing(false);
+            if (errorBody == null) {
+                if (response.body().getStatus().equals("000")) {
+                    //List<OrdersQueue> orderDetails= response.body().getOrdersQueue();
+                    List<OrdersQueue> orderDetails = response.body().getData();
+                    if(orderDetails.size() > 0){
+                        mOrdersItemDetailsAdapter = new MyOrdersItemDetailsRecyclerAdapter(getViewContext(), orderDetails, status, usertype);
+                        recyclerView.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getViewContext(), R.drawable.recycler_divider)));
+                        recyclerView.setAdapter(mOrdersItemDetailsAdapter);
+                    }
+
+                } else {
+                    showError(response.body().getMessage());
+                }
+            }
+        }
+
+        @Override
+        public void onFailure(Call<GetOrdersQueueResponse> call, Throwable t) {
+            hideProgressDialog();
+            swipeRefreshLayoutVieworders.setRefreshing(false);
+            mSmoothProgressBar.setVisibility(View.GONE);
+            showError(t.getMessage());
+            t.printStackTrace();
+        }
+    };
+
+    @Override
+    public void onRefresh() {
+       if(usertype.equals("WHOLESALER")){
+           mOrdersItemDetailsAdapter = new MyOrdersItemDetailsRecyclerAdapter(getViewContext(), mdb.getOrderDetailsForTxnId(orderstatus,ordertxnid), status, usertype);
+           recyclerView.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getViewContext(), R.drawable.recycler_divider)));
+           recyclerView.setAdapter(mOrdersItemDetailsAdapter);
+       }else{
+           swipeRefreshLayoutVieworders.setRefreshing(true);
+           if(orderstatus.equals("PENDING")){
+               getOrderDetails();
+           }else{
+               getOrderDetailsHistorySession();
+           }
+       }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void setUpUPayPaymentOptionsDialog() {
+        mPaymentOptionsDialog = new MaterialDialog.Builder(getViewContext())
+                .cancelable(true)
+                .customView(R.layout.upay_paymentoption_dilaog, false)
+                .build();
+
+        View view = mPaymentOptionsDialog.getCustomView();
+
+        TextView description = view.findViewById(R.id.upayPaymentAmountTV);
+        EditText upayMobileNumber = view.findViewById(R.id.upayMobileNumber);
+        Button upayBtn = view.findViewById(R.id.upayBtn);
+
+        String desc = "You are about to pay PHP <b>"+ CommonFunctions.currencyFormatter(String.valueOf(totalOrderAmount)) +"</b> as payment for Ultra Mega Groceries";
+        description.setText(CommonFunctions.makeSpannable(desc, "<b>(.+?)</b>", "<b>", "</b>"));
+        upayBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(upayMobileNumber.getText().toString().isEmpty() || upayMobileNumber.getText().toString().length() < 10){
+                    upayMobileNumber.setError("Invalid mobile number.");
+                    upayMobileNumber.requestFocus();
+                }else{
+                    mobilenumber = "63"+upayMobileNumber.getText().toString();
+                    progressDialog("","Processing request....Please wait.....");
+                    sendUPAYPaymentRequest();
+                }
+            }
+        });
+        mPaymentOptionsDialog.show();
+    }
+
+    private void setupUpayOtpDialog(){
+        mPaymentOptionsDialog = new MaterialDialog.Builder(getViewContext())
+                .cancelable(false)
+                .customView(R.layout.upay_otp_verification, false)
+                .build();
+
+        View view1 = mPaymentOptionsDialog.getCustomView();
+
+        OtpTextView otp_view = Objects.requireNonNull(view1).findViewById(R.id.otp_view);
+        Button upayBtn = view1.findViewById(R.id.upayBtn);
+        Button upayBtnCancel = view1.findViewById(R.id.upayBtnCancel);
+
+        upayBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(otp_view.getOTP().toString().length() < 6){
+                    Toast.makeText(getViewContext(),"Invalid Otp code",Toast.LENGTH_SHORT).show();
+                }else{
+                    otp = otp_view.getOTP().toString();
+                    progressDialog("","Processing payment... Please wait ....");
+                    confirmUPayPayment();
+                }
+            }
+        });
+
+        upayBtnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPaymentOptionsDialog.dismiss();
+                mPaymentOptionsDialog = null;
+            }
+        });
+        mPaymentOptionsDialog.show();
+    }
+
+
+    //UPAY
+    private void sendUPAYPaymentRequest() {
+        Call<UpayResponse> call = RetrofitBuild.getUpayAPI(getViewContext())
+                .sendUPayPaymentRequest(
+                        imei,
+                        authcode,
+                        sessionid,
+                        customerid,
+                        usertype,
+                        userid,
+                        ordertxnid,
+                        mobilenumber);
+        call.enqueue(sendUPAYPaymentRequestCallback);
+    }
+    private Callback<UpayResponse> sendUPAYPaymentRequestCallback = new Callback<UpayResponse>() {
+
+        @Override
+        public void onResponse(@NotNull Call<UpayResponse> call, Response<UpayResponse> response) {
+            ResponseBody errorBody = response.errorBody();
+            hideProgressDialog();
+            swipeRefreshLayoutVieworders.setRefreshing(false);
+            if (errorBody == null) {
+                if (response.body().getStatus().equals("000")) {
+                    mPaymentOptionsDialog.dismiss();
+                    mPaymentOptionsDialog = null;
+                    setupUpayOtpDialog();
+                } else {
+                    if(response.body().getMessage().isEmpty()){
+                        showError("Can’t process this transaction at this time.");
+                    }else{
+                        showError(response.body().getMessage());
+                    }
+                }
+            }
+        }
+
+        @Override
+        public void onFailure(Call<UpayResponse> call, Throwable t) {
+            hideProgressDialog();
+            showError("Something went wrong with the server. Please try again later.");
+            t.printStackTrace();
+        }
+    };
+
+
+    //confirm payment
+    private void confirmUPayPayment() {
+        Call<UpayResponse> call = RetrofitBuild.getUpayAPI(getViewContext())
+                .confirmUPayPayment(
+                        imei,
+                        authcode,
+                        sessionid,
+                        customerid,
+                        usertype,
+                        userid,
+                        ordertxnid,
+                        mobilenumber,
+                        otp);
+        call.enqueue(confirmUPayPaymentCallback);
+    }
+
+    private Callback<UpayResponse> confirmUPayPaymentCallback = new Callback<UpayResponse>() {
+
+        @Override
+        public void onResponse(Call<UpayResponse> call, Response<UpayResponse> response) {
+            ResponseBody errorBody = response.errorBody();
+            hideProgressDialog();
+            swipeRefreshLayoutVieworders.setRefreshing(false);
+            if (errorBody == null) {
+                if (response.body().getStatus().equals("000")) {
+                    mPaymentOptionsDialog.dismiss();
+                    mPaymentOptionsDialog = null;
+
+                    new SweetAlertDialog(getViewContext())
+                            .setTitleText("Your order with OrderTxnID: "+ordertxnid+" has been successfully paid thru UPAY Payment \n Thank you.")
+                            .setConfirmText("Go to order")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                    sweetAlertDialog.dismiss();
+                                    Intent intent = new Intent(getViewContext(), MainActivity.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    intent.putExtra("index", 3);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            }).show();
+                } else {
+                    if(response.body().getMessage().isEmpty()){
+                        showError("Can’t process this transaction at this time.");
+                    }else{
+                        showError(response.body().getMessage());
+                    }
+
+                }
+            }
+        }
+
+        @Override
+        public void onFailure(Call<UpayResponse> call, Throwable t) {
+            hideProgressDialog();
+            showError("Something went wrong with the server. Please try again later.");
+            t.printStackTrace();
+        }
+    };
+
+
+}

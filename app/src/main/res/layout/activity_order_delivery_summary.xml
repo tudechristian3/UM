@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.ultramega.shop.activity.OrderDeliverySummary">
+
+    <include layout="@layout/toolbar"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_address"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorWhite"
+            android:layout_above="@+id/buttons"
+            tools:listitem="@layout/fragment_select_order_delivery_address_item"/>
+
+        <LinearLayout
+            android:id="@+id/buttons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:paddingBottom="20dp"
+            android:paddingLeft="20dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="0dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnplaceorder"
+                style="?android:attr/buttonBarButtonStyle"
+                android:background="@drawable/button_mylist_addtocart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textColor="@color/colorWhite"
+                android:textAllCaps="false"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

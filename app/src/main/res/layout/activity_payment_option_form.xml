@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical"
+    android:paddingEnd="20dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingStart="20dp">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <Spinner
+                    android:id="@+id/forPaymentBankName"
+                    style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:prompt="@string/string_spinner_city"
+                    android:spinnerMode="dropdown" />
+
+                <Spinner
+                    android:id="@+id/forPaymentBankAccountNumber"
+                    style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:prompt="@string/string_spinner_city"
+                    android:spinnerMode="dropdown" />
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:hint="@string/string_amount"
+                    android:inputType="numberDecimal"
+                    android:textSize="16sp"
+                    app:met_baseColor="@color/colorProductDetail"
+                    app:met_floatingLabel="highlight"
+                    app:met_floatingLabelPadding="5dp"
+                    app:met_floatingLabelTextColor="@color/colorShoppingCartTotal"
+                    app:met_hideUnderline="false"
+                    app:met_primaryColor="@color/colorShoppingCartTotal"
+                    app:met_textColorHint="@color/color_9b9b9b"
+                    app:met_typeface="fonts/ElliotSans-Regular.ttf" />
+
+                <FrameLayout
+                    android:id="@+id/forPaymentFrameImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/image_box_dotted"
+                    android:gravity="center|center_vertical"
+                    android:minHeight="200dp">
+
+                    <ImageView
+                        android:id="@+id/emptyReceipt"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:layout_marginBottom="0dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_gravity="center|center_vertical"
+                        android:padding="0dp"
+                        android:scaleType="fitCenter"
+                        android:contentDescription="@null"
+                        android:src="@drawable/empty_image" />
+
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tapImage"
+                    android:layout_marginTop="15dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/color_ABAAAB"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/string_tap"
+                    android:gravity="center|center_vertical"/>
+
+                <ImageView
+                    android:id="@+id/forPaymentReceipt"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_gravity="center|center_vertical"
+                    android:padding="0dp"
+                    android:scaleType="fitCenter"
+                    android:contentDescription="@null"
+                    android:src="@drawable/empty_image" />
+
+                <TextView
+                    android:id="@+id/changeImage"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="5dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/color_ABAAAB"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/string_change_image"
+                    android:gravity="center|center_vertical"/>
+
+                <LinearLayout
+                    android:id="@+id/buttons"
+                    android:layout_marginTop="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingBottom="20dp"
+                    android:paddingTop="0dp">
+
+                    <Button
+                        android:id="@+id/forPaymentConfirm"
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/button_mylist_addtocart"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="18sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</RelativeLayout>

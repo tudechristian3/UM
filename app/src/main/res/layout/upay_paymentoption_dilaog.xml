@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Welcome Kapamilya"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:textSize="25sp"
+            android:padding="@dimen/activity_vertical_margin"
+            android:textColor="@color/black"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/upayPaymentAmountTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="You are about to pay PHP 24,588.90 as payment for Ultra Mega Groceries"
+            android:gravity="center"
+            android:padding="16dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Please provide your KREW Mobile Number"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:padding="16dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:gravity="center_vertical"
+            android:background="@drawable/bg_border_radius"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:padding="@dimen/default_padding_bottom">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+63"
+                android:gravity="end"
+                android:textSize="16sp"
+                android:layout_weight="0.10"/>
+
+            <EditText
+                android:id="@+id/upayMobileNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:backgroundTint="@color/white"
+                android:maxLength="10"
+                android:layout_weight="0.90"/>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/upayBtn"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:backgroundTint="#00AE5A"
+            android:layout_margin="16dp"
+            android:text="Authorize Payment"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            />
+
+
+    </LinearLayout>
+
+</LinearLayout>

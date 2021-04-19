@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_notification"
+        android:icon="@drawable/ic_action_notification"
+        android:title="@string/menu_notification"
+        android:visible="false"
+        app:actionLayout="@layout/custom_notification_icon_layout"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_my_shopping_cart"
+        android:icon="@drawable/ic_my_shopping_cart"
+        android:title="@string/menu_shopping_cart"
+        android:visible="false"
+        app:actionLayout="@layout/custom_shopping_cart_icon_layout"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_scan_code"
+        android:icon="@drawable/ic_scan_code_tinted"
+        android:title="@string/menu_scan"
+        android:visible="false"
+        app:showAsAction="ifRoom" />
+
+</menu>

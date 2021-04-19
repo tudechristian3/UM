@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:paddingEnd="20dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingStart="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/edt_enter_access_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/string_enter_access_code_here"
+            android:inputType="phone"
+            android:textSize="16sp"
+            app:met_baseColor="@color/colorProductDetail"
+            app:met_floatingLabel="normal"
+            app:met_floatingLabelPadding="5dp"
+            app:met_floatingLabelTextColor="@color/colorShoppingCartTotal"
+            app:met_hideUnderline="false"
+            app:met_primaryColor="@color/colorShoppingCartTotal"
+            app:met_textColor="@color/color_333333"
+            app:met_typeface="fonts/ElliotSans-Regular.ttf" />
+
+        <Button
+            android:id="@+id/btnContinueAccessCode"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/button_mylist_addtocart"
+            android:textAllCaps="false"
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txv_access_code_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:maxLines="3"
+                android:textColor="@color/color_989898"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/txv_resend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:maxLines="2"
+                android:paddingEnd="5dp"
+                android:paddingRight="5dp"
+                android:paddingStart="5dp"
+                android:textColor="@color/color_0060B0"
+                android:textSize="14sp" />
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txv_countdown_timer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:maxLines="3"
+            android:paddingEnd="5dp"
+            android:paddingRight="5dp"
+            android:paddingStart="5dp"
+            android:textColor="@color/color_0060B0"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+</ScrollView>

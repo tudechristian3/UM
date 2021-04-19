@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingEnd="15dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingStart="15dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/addressLabel"
+                        android:paddingTop="15dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/color_212121"
+                        android:textSize="16sp" />
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/country"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:hint="Country"
+                        android:inputType="textPersonName"
+                        android:textSize="16sp"
+                        app:met_baseColor="@color/colorProductDetail"
+                        app:met_floatingLabel="highlight"
+                        app:met_floatingLabelPadding="5dp"
+                        app:met_floatingLabelTextColor="@color/colorShoppingCartTotal"
+                        app:met_hideUnderline="false"
+                        app:met_primaryColor="@color/colorShoppingCartTotal"
+                        app:met_textColorHint="@color/color_9b9b9b"
+                        app:met_typeface="fonts/ElliotSans-Regular.ttf" />
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/region"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:hint="Region"
+                        android:inputType="textPersonName"
+                        android:textSize="16sp"
+                        app:met_baseColor="@color/colorProductDetail"
+                        app:met_floatingLabel="highlight"
+                        app:met_floatingLabelPadding="5dp"
+                        app:met_floatingLabelTextColor="@color/colorShoppingCartTotal"
+                        app:met_hideUnderline="false"
+                        app:met_primaryColor="@color/colorShoppingCartTotal"
+                        app:met_textColorHint="@color/color_9b9b9b"
+                        app:met_typeface="fonts/ElliotSans-Regular.ttf" />
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/city"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:hint="City"
+                        android:inputType="textPersonName"
+                        android:textSize="16sp"
+                        app:met_baseColor="@color/colorProductDetail"
+                        app:met_floatingLabel="highlight"
+                        app:met_floatingLabelPadding="5dp"
+                        app:met_floatingLabelTextColor="@color/colorShoppingCartTotal"
+                        app:met_hideUnderline="false"
+                        app:met_primaryColor="@color/colorShoppingCartTotal"
+                        app:met_textColorHint="@color/color_9b9b9b"
+                        app:met_typeface="fonts/ElliotSans-Regular.ttf" />
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/barangay"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:hint="Province"
+                        android:inputType="textPersonName"
+                        android:textSize="16sp"
+                        app:met_baseColor="@color/colorProductDetail"
+                        app:met_floatingLabel="highlight"
+                        app:met_floatingLabelPadding="5dp"
+                        app:met_floatingLabelTextColor="@color/colorShoppingCartTotal"
+                        app:met_hideUnderline="false"
+                        app:met_primaryColor="@color/colorShoppingCartTotal"
+                        app:met_textColorHint="@color/color_9b9b9b"
+                        app:met_typeface="fonts/ElliotSans-Regular.ttf" />
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:hint="@string/string_zip_code"
+                        android:inputType="textPersonName"
+                        android:textSize="16sp"
+                        app:met_baseColor="@color/colorProductDetail"
+                        app:met_floatingLabel="highlight"
+                        app:met_floatingLabelPadding="5dp"
+                        app:met_floatingLabelTextColor="@color/colorShoppingCartTotal"
+                        app:met_hideUnderline="false"
+                        app:met_primaryColor="@color/colorShoppingCartTotal"
+                        app:met_textColorHint="@color/color_9b9b9b"
+                        app:met_typeface="fonts/ElliotSans-Regular.ttf" />
+
+                    <TextView
+                        android:id="@+id/specialLabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:textColor="@color/color_212121"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/box_halo"
+                        android:gravity="top|start"
+                        android:inputType="textMultiLine"
+                        android:lines="8"
+                        android:maxLines="10"
+                        android:minLines="6"
+                        android:scrollbars="vertical"
+                        android:textColor="@color/color_9b9b9b" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorWhite"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/btnSaveAddress"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorCategoryItem"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="18sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</RelativeLayout>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="paymaya_vault_background">#000</color>
+    <color name="paymaya_vault_button_background_color">#6a1713</color>
+    <color name="paymaya_vault_button_text_color">#fff</color>
+    <color name="paymaya_vault_card_details_label">#747474</color>
+    <color name="paymaya_vault_form_background">#f5f9ff</color>
+    <color name="paymaya_vault_input_text_accent">#1473eb</color>
+    <color name="paymaya_vault_input_text_color">#444</color>
+    <color name="paymaya_vault_progress_bar_background">#40000000</color>
+    <color name="paymaya_vault_progress_bar_color">#1473eb</color>
+    <string name="paymaya_card_expired_error">Card is expired</string>
+    <string name="paymaya_checking_payment_status">Checking payment status</string>
+    <string name="paymaya_connection_error">No internet connection</string>
+    <string name="paymaya_error_dialog_title">Error</string>
+    <string name="paymaya_invalid_card_number">Invalid card number</string>
+    <string name="paymaya_invalid_cvc">Invalid CVV</string>
+    <string name="paymaya_invalid_date">Invalid date</string>
+    <string name="paymaya_ok">OK</string>
+    <string name="paymaya_unknown_error">Unknown error occurred</string>
+    <string name="paymaya_vault_card_cvc">CVV</string>
+    <string name="paymaya_vault_card_details">Card Details</string>
+    <string name="paymaya_vault_card_exp_date">Expiry Date</string>
+    <string name="paymaya_vault_card_exp_date_hint">MM/YY</string>
+    <string name="paymaya_vault_card_number">Card Number</string>
+    <string name="paymaya_vault_logo_content_description">Logo</string>
+    <string name="paymaya_vault_pay_button">Pay now</string>
+    <style name="PayMayaVaultBackground">
+        <item name="android:background">@android:color/white</item>
+    </style>
+    <style name="PayMayaVaultBackgroundBase" parent="PayMayaVaultBackground">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+    <style name="PayMayaVaultCardDetailsLabel">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/paymaya_vault_card_details_label</item>
+    </style>
+    <style name="PayMayaVaultCardDetailsLabelBase" parent="PayMayaVaultCardDetailsLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginRight">16dp</item>
+        <item name="android:layout_marginBottom">16dp</item>
+    </style>
+    <style name="PayMayaVaultFormBackground">
+        <item name="android:background">@color/paymaya_vault_form_background</item>
+    </style>
+    <style name="PayMayaVaultFormBackgroundBase" parent="PayMayaVaultFormBackground">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginRight">16dp</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+    <style name="PayMayaVaultInfo">
+        <item name="android:src">@drawable/info_dark</item>
+    </style>
+    <style name="PayMayaVaultLogo">
+        <item name="android:paddingStart">32dp</item>
+        <item name="android:paddingEnd">32dp</item>
+        <item name="android:src">@drawable/paymaya_logo</item>
+    </style>
+    <style name="PayMayaVaultLogoBase" parent="PayMayaVaultLogo">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_marginRight">16dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+    </style>
+    <style name="PayMayaVaultPayButton">
+        <item name="android:backgroundTint">@color/paymaya_vault_button_background_color</item>
+        <item name="android:textColor">@color/paymaya_vault_button_text_color</item>
+    </style>
+    <style name="PayMayaVaultPayButtonBase" parent="PayMayaVaultPayButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginRight">16dp</item>
+        <item name="android:layout_marginBottom">16dp</item>
+    </style>
+    <style name="PayMayaVaultProgressbar">
+        <item name="android:indeterminateTint">@color/paymaya_vault_progress_bar_color</item>
+    </style>
+    <style name="PayMayaVaultProgressbarBase" parent="PayMayaVaultProgressbar">
+        <item name="android:layout_width">64dp</item>
+        <item name="android:layout_height">64dp</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+    <style name="PayMayaVaultTextInputEditText">
+        <item name="android:textColor">@color/paymaya_vault_input_text_color</item>
+    </style>
+    <style name="PayMayaVaultTextInputEditTextBase" parent="PayMayaVaultTextInputEditText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:digits">0123456789</item>
+        <item name="android:inputType">textNoSuggestions|number</item>
+    </style>
+    <style name="PayMayaVaultTextInputEditTextWithDrawable">
+        <item name="android:textColor">@color/paymaya_vault_input_text_color</item>
+        <item name="android:drawableEnd">@drawable/info_dark</item>
+    </style>
+    <style name="PayMayaVaultTextInputEditTextWithDrawableBase" parent="PayMayaVaultTextInputEditTextWithDrawable">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:digits"> 0123456789</item>
+        <item name="android:inputType">textNoSuggestions|number</item>
+    </style>
+    <style name="PayMayaVaultTextInputLayout">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginRight">16dp</item>
+        <item name="android:theme">@style/PayMayaVaultTextInputLayoutTheme</item>
+    </style>
+    <style name="PayMayaVaultTextInputLayoutTheme">
+        <item name="android:textColorHint">#aaa</item>
+        <!-- <item name="android:textSize">16sp</item>-->
+        <!-- <item name="colorAccent">@android:color/darker_gray</item>-->
+        <item name="colorControlNormal">@android:color/darker_gray</item>
+        <item name="colorControlActivated">@color/paymaya_vault_input_text_accent</item>
+    </style>
+</resources>

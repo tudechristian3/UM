@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "applicationId": "com.paymaya.sdk.android",
+  "variantType": "LIBRARY",
+  "elements": [
+    {
+      "outputType": {
+        "type": "MERGED_MANIFESTS"
+      },
+      "apkData": {
+        "type": "MAIN",
+        "splits": [],
+        "versionCode": 14,
+        "versionName": "1.14",
+        "outputFile": "sdk-release.aar",
+        "fullName": "release",
+        "baseName": "release",
+        "dirName": ""
+      },
+      "path": "../../library_manifest/release/AndroidManifest.xml",
+      "properties": {
+        "packageId": "com.paymaya.sdk.android",
+        "split": ""
+      }
+    }
+  ]
+}

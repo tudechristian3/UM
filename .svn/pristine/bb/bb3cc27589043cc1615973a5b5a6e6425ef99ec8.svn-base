@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/scrollview_edit_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrollprofile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                android:id="@+id/ll_profile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusableInTouchMode="true"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:id="@+id/forPaymentFrameImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="225dp"
+                    android:background="@color/color_E4E4E4"
+                    android:gravity="center|center_vertical"
+                    android:minHeight="200dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center|center_vertical"
+                        android:layout_marginBottom="0dp"
+                        android:layout_marginTop="0dp"
+                        android:contentDescription="@null"
+                        android:padding="0dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/profile_image_bgd" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/profile_image"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/profile_image_empty" />
+
+                    <ProgressBar
+                        android:id="@+id/progress"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:visibility="gone" />
+
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="15dp"
+                    android:orientation="vertical"
+                    android:paddingEnd="15dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingStart="15dp">
+
+                    <TextView
+                        android:id="@+id/profileLabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:textColor="@color/color_1976D2"
+                        android:textSize="18sp" />
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/edtFirstName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:enabled="false"
+                        android:hint="@string/string_first_nameP"
+                        android:inputType="textPersonName|textNoSuggestions"
+                        android:textSize="16sp"
+                        app:met_baseColor="@color/colorProductDetail"
+                        app:met_floatingLabel="normal"
+                        app:met_floatingLabelTextColor="@color/colorShoppingCartTotal"
+                        app:met_floatingLabelTextSize="14sp"
+                        app:met_primaryColor="@color/colorShoppingCartTotal"
+                        app:met_textColor="@color/color_333333"
+                        app:met_typeface="fonts/ElliotSans-Regular.ttf" />
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/edtLastName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:enabled="false"
+                        android:hint="@string/string_last_nameP"
+                        android:inputType="textPersonName|textNoSuggestions"
+                        android:textSize="16sp"
+                        app:met_baseColor="@color/colorProductDetail"
+                        app:met_floatingLabel="normal"
+                        app:met_floatingLabelTextColor="@color/colorShoppingCartTotal"
+                        app:met_floatingLabelTextSize="14sp"
+                        app:met_primaryColor="@color/colorShoppingCartTotal"
+                        app:met_textColor="@color/color_333333"
+                        app:met_typeface="fonts/ElliotSans-Regular.ttf" />
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/edtEmailAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:enabled="false"
+                        android:hint="@string/string_email_addressP"
+                        android:inputType="textEmailAddress|textNoSuggestions"
+                        android:textSize="16sp"
+                        app:met_baseColor="@color/colorProductDetail"
+                        app:met_floatingLabel="normal"
+                        app:met_floatingLabelTextColor="@color/colorShoppingCartTotal"
+                        app:met_floatingLabelTextSize="14sp"
+                        app:met_primaryColor="@color/colorShoppingCartTotal"
+                        app:met_textColor="@color/color_333333"
+                        app:met_typeface="fonts/ElliotSans-Regular.ttf" />
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/edtMobileNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:enabled="false"
+                        android:hint="@string/string_mobile_number"
+                        android:inputType="phone|textNoSuggestions"
+                        android:textSize="16sp"
+                        app:met_baseColor="@color/colorProductDetail"
+                        app:met_floatingLabel="normal"
+                        app:met_floatingLabelPadding="5dp"
+                        app:met_floatingLabelTextColor="@color/colorShoppingCartTotal"
+                        app:met_helperTextAlwaysShown="true"
+                        app:met_helperTextColor="@color/colorShoppingCartTotal"
+                        app:met_hideUnderline="false"
+                        app:met_primaryColor="@color/colorShoppingCartTotal"
+                        app:met_textColor="@color/color_333333"
+                        app:met_typeface="fonts/ElliotSans-Regular.ttf" />
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/edtBirthDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:enabled="false"
+                        android:focusableInTouchMode="false"
+                        android:hint="@string/string_birth_dateP"
+                        android:textSize="16sp"
+                        app:met_baseColor="@color/colorProductDetail"
+                        app:met_floatingLabel="normal"
+                        app:met_floatingLabelTextColor="@color/colorShoppingCartTotal"
+                        app:met_floatingLabelTextSize="14sp"
+                        app:met_primaryColor="@color/colorShoppingCartTotal"
+                        app:met_textColor="@color/color_333333"
+                        app:met_typeface="fonts/ElliotSans-Regular.ttf" />
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/edtGender"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:enabled="false"
+                        android:focusableInTouchMode="false"
+                        android:hint="@string/string_genderP"
+                        android:inputType="textPersonName|textNoSuggestions"
+                        android:textSize="16sp"
+                        app:met_baseColor="@color/colorProductDetail"
+                        app:met_floatingLabel="normal"
+                        app:met_floatingLabelTextColor="@color/colorShoppingCartTotal"
+                        app:met_floatingLabelTextSize="14sp"
+                        app:met_primaryColor="@color/colorShoppingCartTotal"
+                        app:met_textColor="@color/color_333333"
+                        app:met_typeface="fonts/ElliotSans-Regular.ttf" />
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/edtOccupation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:enabled="false"
+                        android:hint="@string/string_occupationP"
+                        android:inputType="textPersonName|textNoSuggestions"
+                        android:textSize="16sp"
+                        app:met_baseColor="@color/colorProductDetail"
+                        app:met_floatingLabel="normal"
+                        app:met_floatingLabelTextColor="@color/colorShoppingCartTotal"
+                        app:met_floatingLabelTextSize="14sp"
+                        app:met_primaryColor="@color/colorShoppingCartTotal"
+                        app:met_textColor="@color/color_333333"
+                        app:met_typeface="fonts/ElliotSans-Regular.ttf" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp">
+
+                    <TextView
+                        android:id="@+id/txv_interestLabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:textColor="@color/color_1976D2"
+                        android:textSize="18sp" />
+
+                    <LinearLayout
+                        android:id="@+id/nointerestlayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/nointerestlabel"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center|center_vertical"
+                            android:textColor="@color/color_333333"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/nointerestsublabel"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center|center_vertical"
+                            android:textColor="@color/color_999999"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_profile_interest"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingBottom="16dp"
+                        tools:listitem="@layout/fragment_interest_list_profile" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</LinearLayout>

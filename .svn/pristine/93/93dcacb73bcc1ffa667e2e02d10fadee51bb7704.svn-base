@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
+
+    <RadioGroup
+        android:id="@+id/radioGroupShoppingMode"
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/order_divider"
+        android:paddingBottom="15dp"
+        android:paddingEnd="15dp"
+        android:paddingLeft="15dp"
+        android:paddingStart="15dp"
+        android:paddingTop="15dp">
+
+        <RadioButton
+            android:id="@+id/radioButtonConsumer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginTop="10dp"
+            android:checked="false"
+            android:textColor="@color/colorProductDetail"
+            android:textSize="16sp" />
+
+        <RadioButton
+            android:id="@+id/radioButtonWholesaler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginTop="10dp"
+            android:checked="false"
+            android:textColor="@color/colorProductDetail"
+            android:textSize="16sp" />
+
+    </RadioGroup>
+
+</LinearLayout>

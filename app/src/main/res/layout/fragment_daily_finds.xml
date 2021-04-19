@@ -1,0 +1,141 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_E4E4E4">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:focusableInTouchMode="true"
+                android:orientation="vertical"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                <TextView
+                    android:id="@+id/tab_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/tabItemColor"
+                    android:gravity="start|center_vertical"
+                    android:paddingEnd="15dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingStart="15dp"
+                    android:paddingTop="10dp"
+                    android:text="DAILY FINDS"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="40sp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view_deals"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="5dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingStart="5dp"
+                    android:paddingTop="5dp"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                    tools:listitem="@layout/fragment_deals_item" />
+
+            </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/progress"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:visibility="gone" />
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmer_view_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:paddingBottom="5dp"
+                android:visibility="gone"
+                app:shimmer_duration="1500">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@drawable/drawable_loading_border"
+                    android:orientation="horizontal"
+                    fab:ignore="UseCompoundDrawables">
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_gravity="center"
+                        android:contentDescription="@null"
+                        android:gravity="center"
+                        android:src="@drawable/um_logo" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:padding="2dp"
+                        android:text="Loading..."
+                        android:textColor="@color/color_000000"
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+            <include layout="@layout/fragment_empty_layout" />
+
+            <include layout="@layout/smooth_progress_bar" />
+
+            <include layout="@layout/layout_menu_central" />
+
+            <com.github.clans.fab.FloatingActionMenu
+                android:id="@+id/fabMenu"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom|right|end"
+                android:padding="8dp"
+                android:visibility="visible"
+                fab:menu_backgroundColor="#CCFFFFFF"
+                fab:menu_colorNormal="@color/fabNormal"
+                fab:menu_colorPressed="@color/fabPressed"
+                fab:menu_colorRipple="@color/fabRipple"
+                fab:menu_labels_colorNormal="@color/fabNormal"
+                fab:menu_labels_cornerRadius="2dp"
+                fab:menu_labels_ellipsize="end"
+                fab:menu_labels_singleLine="true"
+                fab:menu_labels_textColor="#FFFFFF"
+                fab:menu_shadowColor="@color/color_788F9B"
+                fab:menu_shadowRadius="4dp"
+                fab:menu_shadowXOffset="1dp"
+                fab:menu_shadowYOffset="3dp"
+                fab:menu_showShadow="true" />
+
+        </FrameLayout>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+</FrameLayout>
+
+
+
+
+
+
+

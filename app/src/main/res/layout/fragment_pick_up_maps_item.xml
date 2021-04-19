@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhite"
+    android:baselineAligned="false"
+    android:orientation="horizontal"
+    android:paddingBottom="15dp"
+    android:paddingEnd="15dp"
+    android:paddingLeft="0dp"
+    android:paddingRight="15dp"
+    android:paddingStart="0dp">
+
+    <RelativeLayout
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:padding="1dp"
+        android:visibility="visible">
+
+        <ImageView
+            android:id="@+id/pick_up_branch_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:adjustViewBounds="true"
+            android:contentDescription="@null"
+            android:maxHeight="100dp"
+            android:paddingEnd="10dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="10dp"
+            android:paddingStart="5dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_pick_up_maps_marker" />
+
+    </RelativeLayout>
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="50dp"-->
+    <!--android:layout_height="100dp"-->
+    <!--android:orientation="vertical"-->
+    <!--android:padding="1dp"-->
+    <!--android:visibility="visible">-->
+
+    <!--<ImageView-->
+    <!--android:id="@+id/pick_up_branch_image"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_gravity="center_vertical"-->
+    <!--android:contentDescription="@null"-->
+    <!--android:maxHeight="100dp"-->
+    <!--android:paddingEnd="10dp"-->
+    <!--android:paddingLeft="5dp"-->
+    <!--android:paddingRight="10dp"-->
+    <!--android:paddingStart="5dp"-->
+    <!--android:scaleType="fitCenter"-->
+    <!--android:src="@drawable/ic_pick_up_maps_marker" />-->
+
+    <!--</LinearLayout>-->
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/pick_up_branch_distance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|end"
+            android:paddingTop="15dp"
+            android:textColor="@color/color_F83832" />
+
+        <TextView
+            android:id="@+id/pick_up_branch_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|start"
+            android:textColor="@color/color_424242"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/pick_up_branch_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top|start"
+            android:textColor="@color/color_C6C6C6" />
+
+        <TextView
+            android:id="@+id/pick_up_branch_storeopen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/main_blue_color" />
+
+        <TextView
+            android:id="@+id/pick_up_branch_storeclose"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_F83832" />
+
+    </LinearLayout>
+
+</LinearLayout>

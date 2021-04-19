@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Consumer Theme -->
+    <style name="AppTheme.Consumer" parent="Theme.AppCompat.Light.NoActionBar">
+        <!--<item name="colorPrimary">@color/color_0160B0</item>-->
+        <item name="colorAccent">@color/color_2196F3</item>
+        <!--<item name="colorAccent">@color/color_0381DE</item>-->
+        <item name="colorPrimary">@color/color_B7B8BC</item>
+        <item name="colorPrimaryDark">@color/color_004C8C</item>
+        <item name="android:listDivider">@color/colorNavListDivider</item>
+    </style>
+
+    <!-- Wholesaler Theme -->
+    <style name="AppTheme.Wholesaler" parent="Theme.AppCompat.Light.NoActionBar">
+        <!--<item name="colorPrimary">@color/color_F83832</item>-->
+        <item name="colorAccent">@color/color_FF7043</item>
+        <!--<item name="colorAccent">@color/color_0381DE</item>-->
+        <item name="colorPrimary">@color/color_B7B8BC</item>
+        <item name="colorPrimaryDark">@color/color_C62C28</item>
+        <item name="android:listDivider">@color/colorNavListDivider</item>
+    </style>
+
+</resources>

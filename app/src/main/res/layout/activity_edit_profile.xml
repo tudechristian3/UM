@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar" />
+
+    <include layout="@layout/smooth_progress_bar" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nested_interest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/edtFirstName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:hint="@string/string_first_name"
+                android:digits="abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ-"
+                android:inputType="textPersonName|textNoSuggestions"
+                android:textSize="16sp"
+                app:met_baseColor="@color/colorProductDetail"
+                app:met_errorColor="@color/red"
+                app:met_floatingLabel="normal"
+                app:met_floatingLabelTextColor="@color/colorShoppingCartTotal"
+                app:met_floatingLabelTextSize="14sp"
+                app:met_primaryColor="@color/colorShoppingCartTotal"
+                app:met_textColor="@color/color_333333"
+                app:met_typeface="fonts/ElliotSans-Regular.ttf" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/edtLastName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:hint="@string/string_last_name"
+                android:digits="abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ-"
+                android:inputType="textPersonName|textNoSuggestions"
+                android:textSize="16sp"
+                app:met_baseColor="@color/colorProductDetail"
+                app:met_floatingLabel="normal"
+                app:met_floatingLabelTextColor="@color/colorShoppingCartTotal"
+                app:met_floatingLabelTextSize="14sp"
+                app:met_primaryColor="@color/colorShoppingCartTotal"
+                app:met_textColor="@color/color_333333"
+                app:met_typeface="fonts/ElliotSans-Regular.ttf" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/edtCountry"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:enabled="false"
+                android:focusableInTouchMode="false"
+                android:hint="@string/string_country"
+                android:inputType="textPersonName|textNoSuggestions"
+                android:textSize="16sp"
+                app:met_baseColor="@color/colorProductDetail"
+                app:met_floatingLabel="normal"
+                app:met_floatingLabelTextColor="@color/colorShoppingCartTotal"
+                app:met_floatingLabelTextSize="14sp"
+                app:met_primaryColor="@color/colorShoppingCartTotal"
+                app:met_textColor="@color/color_333333"
+                app:met_typeface="fonts/ElliotSans-Regular.ttf" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/edtEmailAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:hint="@string/string_email_address"
+                android:inputType="textEmailAddress|textNoSuggestions"
+                android:textSize="16sp"
+                app:met_baseColor="@color/colorProductDetail"
+                app:met_floatingLabel="normal"
+                app:met_floatingLabelTextColor="@color/colorShoppingCartTotal"
+                app:met_floatingLabelTextSize="14sp"
+                app:met_primaryColor="@color/colorShoppingCartTotal"
+                app:met_textColor="@color/color_333333"
+                app:met_typeface="fonts/ElliotSans-Regular.ttf" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/edtMobileNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:enabled="false"
+                android:hint="@string/string_mobile_number"
+                android:inputType="phone|textNoSuggestions"
+                android:textSize="16sp"
+                app:met_baseColor="@color/colorProductDetail"
+                app:met_floatingLabel="normal"
+                app:met_floatingLabelPadding="5dp"
+                app:met_floatingLabelTextColor="@color/colorShoppingCartTotal"
+                app:met_helperTextAlwaysShown="true"
+                app:met_helperTextColor="@color/colorShoppingCartTotal"
+                app:met_hideUnderline="false"
+                app:met_primaryColor="@color/colorShoppingCartTotal"
+                app:met_textColor="@color/color_333333"
+                app:met_typeface="fonts/ElliotSans-Regular.ttf" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/edtBirthDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:focusableInTouchMode="false"
+                android:hint="@string/string_birth_date"
+                android:textSize="16sp"
+                app:met_baseColor="@color/colorProductDetail"
+                app:met_floatingLabel="normal"
+                app:met_floatingLabelTextColor="@color/colorShoppingCartTotal"
+                app:met_floatingLabelTextSize="14sp"
+                app:met_primaryColor="@color/colorShoppingCartTotal"
+                app:met_textColor="@color/color_333333"
+                app:met_typeface="fonts/ElliotSans-Regular.ttf" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/edtGender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:focusableInTouchMode="false"
+                android:hint="@string/string_gender"
+                android:inputType="textPersonName|textNoSuggestions"
+                android:textSize="16sp"
+                app:met_baseColor="@color/colorProductDetail"
+                app:met_floatingLabel="normal"
+                app:met_floatingLabelTextColor="@color/colorShoppingCartTotal"
+                app:met_floatingLabelTextSize="14sp"
+                app:met_primaryColor="@color/colorShoppingCartTotal"
+                app:met_textColor="@color/color_333333"
+                app:met_typeface="fonts/ElliotSans-Regular.ttf" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/edtOccupation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:hint="@string/string_occupation"
+                android:inputType="textPersonName|textNoSuggestions"
+                android:textSize="16sp"
+                app:met_baseColor="@color/colorProductDetail"
+                app:met_floatingLabel="normal"
+                app:met_floatingLabelTextColor="@color/colorShoppingCartTotal"
+                app:met_floatingLabelTextSize="14sp"
+                app:met_primaryColor="@color/colorShoppingCartTotal"
+                app:met_textColor="@color/color_333333"
+                app:met_typeface="fonts/ElliotSans-Regular.ttf" />
+
+            <TextView
+                android:id="@+id/interestLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Interest List"
+                android:textColor="@color/color_1976D2"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:id="@+id/nointerestlayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <TextView
+                    android:id="@+id/nointerestlabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|center_vertical"
+                    android:textColor="@color/color_333333"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/nointerestsublabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|center_vertical"
+                    android:textColor="@color/color_999999"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/update_interest_edit"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                tools:listitem="@layout/fragment_interest_item" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

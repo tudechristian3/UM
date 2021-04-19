@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <me.himanshusoni.chatmessageview.ChatMessageView
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cmv_arrowGravity="start"
+        app:cmv_arrowPosition="bottom"
+        app:cmv_backgroundColor="@color/color_EEEEEE"
+        app:cmv_backgroundColorPressed="@color/color_EEEEEE"
+        app:cmv_cornerRadius="3dp">
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="This is a sample issue question that crosses over in two lines."
+            android:textColor="@color/color_999999" />
+
+    </me.himanshusoni.chatmessageview.ChatMessageView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:paddingEnd="3dp"
+        android:paddingLeft="3dp"
+        android:paddingStart="3dp"
+        android:paddingTop="5dp"
+        android:text="18:07"
+        android:textColor="@color/color_C6C6C6" />
+
+</LinearLayout>
+
+

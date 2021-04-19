@@ -1,0 +1,543 @@
+package com.ultramega.shop.fragment;
+
+import android.graphics.Bitmap;
+import android.os.Bundle;
+import android.os.Handler;
+import androidx.annotation.Nullable;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.tabs.TabLayout;
+import androidx.viewpager.widget.ViewPager;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.BaseTarget;
+import com.bumptech.glide.request.target.SizeReadyCallback;
+import com.bumptech.glide.request.transition.Transition;
+import com.github.clans.fab.FloatingActionMenu;
+import com.google.gson.Gson;
+import com.ultramega.shop.R;
+import com.ultramega.shop.activity.MainActivity;
+import com.ultramega.shop.adapter.myorders.ViewOrderPagerAdapter;
+import com.ultramega.shop.adapter.shop.CentralRecyclerViewAdapter;
+import com.ultramega.shop.base.BaseFragment;
+import com.ultramega.shop.common.CommonFunctions;
+import com.ultramega.shop.database.UltramegaShopUtilities;
+import com.ultramega.shop.pojo.Central;
+import com.ultramega.shop.pojo.ConsumerProfile;
+import com.ultramega.shop.pojo.ConsumerWallet;
+import com.ultramega.shop.pojo.OrdersQueue;
+import com.ultramega.shop.pojo.WholesalerProfile;
+import com.ultramega.shop.responses.GetConsumerWalletResponse;
+import com.ultramega.shop.responses.GetOrdersQueueResponse;
+import com.ultramega.shop.responses.GetSessionResponse;
+import com.ultramega.shop.rest.RetrofitBuild;
+import com.ultramega.shop.util.SpacesItemDecoration;
+import com.ultramega.shop.util.UserPreferenceManager;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.LinkedHashMap;
+import java.util.List;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+/**
+ * Created by User-PC on 9/20/2017.
+ */
+
+public class OrdersFragment extends BaseFragment {
+    private ViewPager viewPager;
+    private TabLayout tabLayout;
+    private UltramegaShopUtilities mdb;
+    private String imei = "";
+    private String usertype = "";
+    private String authcode = "";
+    private String sessionid = "";
+    private String customerid = "";
+    private String userid = "";
+    private String status = "";
+    private String delivereefee = "";
+    //private String vehicleid = "";
+
+    //FAB
+    private ImageView central_background;
+    private AppBarLayout appBarLayout;
+    private List<Central> centralList;
+    private FrameLayout layout_menu_central;
+    private FloatingActionMenu fab;
+    private boolean isCentralOpen = false;
+    private RecyclerView recyclerViewCentral;
+    private CentralRecyclerViewAdapter mCentralAdapter;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        hideSearchBar();
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        final View view = inflater.inflate(R.layout.fragment_my_orders, container, false);
+
+
+        getValues();
+
+        //initialize empty data
+        tabLayout = (TabLayout) view.findViewById(R.id.tabs);
+        viewPager = (ViewPager) view.findViewById(R.id.viewpager);
+        mdb = new UltramegaShopUtilities(getViewContext());
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                viewPager.setOffscreenPageLimit(2);
+                tabLayout.setTabMode(TabLayout.MODE_FIXED);
+                setTabTheme(UserPreferenceManager.getStringPreference(getViewContext(), BaseFragment.Theme_Current), tabLayout);
+                viewPager.setAdapter(new ViewOrderPagerAdapter(getChildFragmentManager(), getViewContext()));
+                tabLayout.setupWithViewPager(viewPager);
+
+                imei = CommonFunctions.getIMEI(getViewContext());
+                usertype = getCurrentUserType(getViewContext());
+                if (usertype.equals("CONSUMER")) {
+                    ConsumerProfile itemProf = null;
+                    //mdb = new UltramegaShopUtilities(getViewContext());
+                    //ConsumerProfile itemProf = mdb.getConsumerProfile();
+                    itemProf = mdb.getConsumerProfile();
+                    customerid = itemProf.getConsumerID();
+                    userid = itemProf.getUserID();
+
+                } else if (usertype.equals("WHOLESALER")) {
+                    WholesalerProfile wholesalerProfile = mdb.getWholesalerProfile();
+                    customerid = wholesalerProfile.getWholesalerID();
+                    userid = wholesalerProfile.getUserID();
+                }
+
+                //SETUP CENTRAL LAYOUT
+                setUpCentralLayout(view);
+                getSession();
+
+
+            }
+        }, 100);
+
+
+
+
+        return view;
+    }
+
+    private void getValues() {
+        mdb = new UltramegaShopUtilities(getViewContext());
+        ConsumerProfile itemProf = mdb.getConsumerProfile();
+        imei = CommonFunctions.getIMEI(getViewContext());
+        userid = itemProf.getUserID();
+        customerid = mdb.getConsumerID();
+        userid = itemProf.getUserID();
+        usertype = getCurrentUserType(getViewContext());
+        sessionid = UserPreferenceManager.getSession(getViewContext());
+        delivereefee = UserPreferenceManager.getDeliveryFee(getViewContext());
+        //vehicleid = UserPreferenceManager.getVehicleID(getViewContext());
+        //Toast.makeText(getViewContext(), "Delivery Charge" + delivereefee, Toast.LENGTH_SHORT).show();
+    }
+
+    public void setUpCentralLayout(View view) {
+        appBarLayout = (AppBarLayout) view.findViewById(R.id.appBarLayout);
+        layout_menu_central = (FrameLayout) view.findViewById(R.id.layout_menu_central);
+        fab = (FloatingActionMenu) view.findViewById(R.id.fabMenu);
+        recyclerViewCentral = (RecyclerView) view.findViewById(R.id.recycler_view_central);
+        recyclerViewCentral.setLayoutManager(new GridLayoutManager(getViewContext(), 3, GridLayoutManager.VERTICAL, false));
+        recyclerViewCentral.setNestedScrollingEnabled(false);
+        mCentralAdapter = new CentralRecyclerViewAdapter(getViewContext(), OrdersFragment.this);
+        recyclerViewCentral.addItemDecoration(new SpacesItemDecoration(10));
+        recyclerViewCentral.setAdapter(mCentralAdapter);
+        central_background = (ImageView) view.findViewById(R.id.central_background);
+        Glide.with(getViewContext())
+                .asBitmap()
+                .load(R.drawable.central_background)
+                .apply(new RequestOptions()
+                        .fitCenter())
+                .into(new BaseTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
+                        central_background.setImageBitmap(resource);
+                    }
+
+                    @Override
+                    public void getSize(SizeReadyCallback cb) {
+                        cb.onSizeReady(CommonFunctions.getScreenWidth(getViewContext()), CommonFunctions.getScreenHeight(getViewContext()));
+                    }
+
+                    @Override
+                    public void removeCallback(SizeReadyCallback cb) {
+
+                    }
+                });
+
+        centralList = new ArrayList<>();
+        centralList = getCentralList(usertype);
+
+        fab.getMenuIconView().setImageResource(R.drawable.ic_ultramega_central_icon);
+        fab.setOnMenuButtonClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!isCentralOpen) {
+                    showCentral();
+                } else {
+                    hideCentral();
+                }
+            }
+        });
+    }
+
+    private void getSession() {
+
+        if (CommonFunctions.getConnectivityStatus(getViewContext()) > 0) {
+            //API CALL
+            //showProgressDialog();
+            createSession(callsession);
+
+        } else {
+            if (isAdded()) {
+                showError(getString(R.string.generic_internet_error_message));
+            }
+        }
+    }
+
+    private final Callback<GetSessionResponse> callsession = new Callback<GetSessionResponse>() {
+
+        @Override
+        public void onResponse(@NotNull Call<GetSessionResponse> call, Response<GetSessionResponse> response) {
+            ResponseBody errorBody = response.errorBody();
+            if (errorBody == null) {
+                if (response.body().getStatus().equals("000")) {
+                    sessionid = response.body().getSession();
+                    authcode = CommonFunctions.getSha1Hex(imei + sessionid + customerid);
+                    //getOrdersQueue(getOrdersQueueSession);
+                    //getOrdersHistory(getOrdersHistorySession);
+                    getWallet(getWalletSession);
+                } else {
+                    //hideProgressDialog();
+                    if (isAdded()) {
+                        showError(response.body().getMessage());
+                    }
+                }
+            } else {
+                //hideProgressDialog();
+                if (isAdded()) {
+                    showError(getString(R.string.generic_internet_error_message));
+                }
+            }
+        }
+
+        @Override
+        public void onFailure(Call<GetSessionResponse> call, Throwable t) {
+            //hideProgressDialog();
+            if (isAdded()) {
+                showError(getString(R.string.generic_internet_error_message));
+            }
+        }
+    };
+
+    private void validateQRPartialV4() {
+
+        if (CommonFunctions.getConnectivityStatus(requireActivity()) > 0) {
+            LinkedHashMap<String, String> parameters = new LinkedHashMap<>();
+            parameters.put("imei", imei);
+            parameters.put("authcode",CommonFunctions.getSha1Hex(imei + sessionid + customerid));
+            parameters.put("sessionid", sessionid);
+            parameters.put("userid,", userid);
+            parameters.put("customerid,", customerid);
+            parameters.put("usertype", usertype);
+
+            String checker = new Gson().toJson(parameters);
+            Log.d("SPecial", "JSON orderhistory " + checker);
+
+            getOrdersHistory(getOrdersHistorySession);
+
+
+        } else {
+            Toast.makeText(getContext(), "qwe", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void getOrdersHistory(Callback<GetOrdersQueueResponse> getOrdersHistoryCallback) {
+        String limit = "0";
+        Call<GetOrdersQueueResponse> fetchitems = RetrofitBuild.getOrdersQueueService(getViewContext())
+                .getOrdersHistoryCall(
+                        imei,
+                        authcode,
+                        sessionid,
+                        customerid,
+                        usertype,
+                        limit,
+                        userid,
+                        Calendar.getInstance().get(Calendar.YEAR),
+                        Calendar.getInstance().get(Calendar.MONTH) + 1,
+                        String.valueOf(false));
+        fetchitems.enqueue(getOrdersHistoryCallback);
+    }
+
+    private final Callback<GetOrdersQueueResponse> getOrdersHistorySession = new Callback<GetOrdersQueueResponse>() {
+
+        @Override
+        public void onResponse(@NotNull Call<GetOrdersQueueResponse> call, Response<GetOrdersQueueResponse> response) {
+            hideProgressDialog();
+            ResponseBody errorBody = response.errorBody();
+            Log.d("neil","ERROR BODY HISOTRY : "+ new Gson().toJson(errorBody));
+            if (errorBody == null) {
+                if (response.body().getStatus().equals("000")) {
+//                    Log.d("OrderFragment", "data: " + response.body().getData());
+//                    Log.d("OrderFragment", "data2: " + response.body().getOrdersQueue());
+                    mdb.truncateTable(UltramegaShopUtilities.TABLE_ORDERS_HISTORY);
+//                    List<OrdersQueue> orderitems = response.body().getOrdersQueue();
+                    List<OrdersQueue> orderitems = response.body().getData();
+                    for (OrdersQueue order : orderitems) {
+                        mdb.insertOrdersHistory(order, usertype);
+                    }
+                } else {
+                    if (isAdded()) {
+                        showError(response.body().getMessage());
+                    }
+                }
+            } else {
+                if (isAdded()) {
+                    showError(getString(R.string.generic_internet_error_message));
+                }
+            }
+        }
+
+        @Override
+        public void onFailure(Call<GetOrdersQueueResponse> call, Throwable t) {
+            hideProgressDialog();
+            t.printStackTrace();
+            if (isAdded()) {
+                showError(getString(R.string.generic_internet_error_message));
+            }
+        }
+    };
+
+    private void validateQRPartialV3() {
+
+        if (CommonFunctions.getConnectivityStatus(requireActivity()) > 0) {
+            LinkedHashMap<String, String> parameters = new LinkedHashMap<>();
+            parameters.put("imei", imei);
+            parameters.put("authcode",CommonFunctions.getSha1Hex(imei + sessionid + customerid));
+            parameters.put("sessionid", sessionid);
+            parameters.put("userid,", userid);
+            parameters.put("customerid,", customerid);
+            parameters.put("usertype", usertype);
+
+
+
+            String checker = new Gson().toJson(parameters);
+            Log.d("neil", "GET ORDERS QUEUE " + checker);
+
+            getOrdersQueue(getOrdersQueueSession);
+
+
+        } else {
+            Toast.makeText(getContext(), "qwe", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void getOrdersQueue(Callback<GetOrdersQueueResponse> getOrdersQueueCallback) {
+        String limit = "0";
+        Call<GetOrdersQueueResponse> fetchitems = RetrofitBuild.getOrdersQueueService(getViewContext())
+                .getOrdersQueueCall(
+                        imei,
+                        authcode,
+                        sessionid,
+                        customerid,
+                        usertype,
+                        limit,
+                        userid,
+                        Calendar.getInstance().get(Calendar.YEAR),
+                        Calendar.getInstance().get(Calendar.MONTH) + 1);
+        fetchitems.enqueue(getOrdersQueueCallback);
+    }
+
+    private final Callback<GetOrdersQueueResponse> getOrdersQueueSession = new Callback<GetOrdersQueueResponse>() {
+
+        @Override
+        public void onResponse(@NotNull Call<GetOrdersQueueResponse> call, Response<GetOrdersQueueResponse> response) {
+            hideProgressDialog();
+            ResponseBody errorBody = response.errorBody();
+           Log.d("neil","ERROR BODY : "+ new Gson().toJson(errorBody));
+            if (errorBody == null) {
+                if (response.body().getStatus().equals("000")) {
+//                    Log.d("OrderFragment", "history: " + response.body().getData());
+//                    Log.d("OrderFragment", "history2: " + response.body().getOrdersQueue());
+//                    Log.d("OrderFragment", "history3: " + response.body());
+                    mdb.truncateTable(UltramegaShopUtilities.TABLE_ORDERS_QUEUE);
+//                    List<OrdersQueue> orderitems = response.body().getOrdersQueue();
+                    List<OrdersQueue> orderitems = response.body().getData();
+//                    Log.d("OrderFragment", "OrderItems: " + orderitems);
+//                    Log.d("OrderFragment", "history5: " + response.body().getStatus());
+//                    Log.d("OrderFragment", "history4: " + response.body().getMessage());
+                    for (OrdersQueue order : orderitems) {
+                        //======================================
+                        // VALIDATE DATA PASSED FROM THE SERVER
+                        //======================================
+                        if (!(order.getStatus().matches(".*\\d.*") || order.getStatus().equals("CANCELLED") || order.getStatus().equals("COMPLETED"))) {
+                            mdb.insertOrdersQueue(order, usertype);
+                        }
+                    }
+                    validateQRPartialV4();
+                } else {
+                    if (isAdded()) {
+                        showError(response.body().getMessage());
+                    }
+                }
+            } else {
+                if (isAdded()) {
+                    showError(getString(R.string.generic_internet_error_message));
+                }
+            }
+        }
+
+        @Override
+        public void onFailure(@NotNull Call<GetOrdersQueueResponse> call, Throwable t) {
+            hideProgressDialog();
+            t.printStackTrace();
+            if (isAdded()) {
+                showError(getString(R.string.generic_internet_error_message));
+            }
+        }
+    };
+
+    private void validateQRPartialV2() {
+
+        if (CommonFunctions.getConnectivityStatus(requireActivity()) > 0) {
+            LinkedHashMap<String, String> parameters = new LinkedHashMap<>();
+            parameters.put("imei", imei);
+            parameters.put("authcode",CommonFunctions.getSha1Hex(imei + sessionid + customerid));
+            parameters.put("sessionid", sessionid);
+            parameters.put("userid,", userid);
+            parameters.put("customerid,", customerid);
+
+
+            String checker = new Gson().toJson(parameters);
+            Log.d("neil", "GET CONSUMER WALLET " + checker);
+
+            getWallet(getWalletSession);
+
+
+        } else {
+            Toast.makeText(getContext(), "qwe", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void getWallet(Callback<GetConsumerWalletResponse> getWalletCallback) {
+        Call<GetConsumerWalletResponse> call = RetrofitBuild.getConsumerWalletService(getViewContext())
+                .getConsumerWalletCall(customerid,
+                        userid,
+                        CommonFunctions.getSha1Hex(imei + userid + sessionid),
+                        imei,
+                        sessionid);
+        call.enqueue(getWalletCallback);
+    }
+
+    private final Callback<GetConsumerWalletResponse> getWalletSession = new Callback<GetConsumerWalletResponse>() {
+
+        @Override
+        public void onResponse(@NotNull Call<GetConsumerWalletResponse> call, Response<GetConsumerWalletResponse> response) {
+            ResponseBody errorBody = response.errorBody();
+            //hideProgressDialog();
+            if (errorBody == null) {
+                if (response.body().getStatus().equals("000")) {
+                    mdb.truncateTable(UltramegaShopUtilities.TABLE_CONSUMER_WALLET);
+                    List<ConsumerWallet> consumerwallet = response.body().getConsumerWallet();
+                    for (ConsumerWallet wallet : consumerwallet) {
+                        mdb.insertConsumerWallet(wallet);
+                    }
+                    validateQRPartialV3();
+
+                }
+            }else{
+
+            }
+        }
+
+        @Override
+        public void onFailure(Call<GetConsumerWalletResponse> call, Throwable t) {
+            //hideProgressDialog();
+            t.printStackTrace();
+        }
+    };
+
+    public void hideCentral() {
+        if (isAdded()) {
+            if (mCentralAdapter != null) {
+                mCentralAdapter.clear();
+
+                Animation move = AnimationUtils.loadAnimation(getViewContext(), R.anim.gk_services_anim_out);
+                move.setInterpolator((new AccelerateDecelerateInterpolator()));
+                move.setFillAfter(false);
+                //layout_menu_central.startAnimation(move);
+                layout_menu_central.setVisibility(View.GONE);
+                isCentralOpen = false;
+                fab.getMenuIconView().setImageResource(R.drawable.ic_ultramega_central_icon);
+
+                //show toolbar
+                ((MainActivity) getViewContext()).hideToolBar(false);
+
+                //show tabs
+                viewPager.setVisibility(View.VISIBLE);
+                appBarLayout.setVisibility(View.VISIBLE);
+
+            }
+        }
+    }
+
+    private void showCentral() {
+        if (isAdded()) {
+            if (mCentralAdapter != null) {
+                layout_menu_central.setVisibility(View.VISIBLE);
+                Animation move = AnimationUtils.loadAnimation(getViewContext(), R.anim.gk_services_anim);
+                move.setInterpolator((new AccelerateDecelerateInterpolator()));
+                move.setFillAfter(true);
+                //layout_menu_central.startAnimation(move);
+                isCentralOpen = true;
+                fab.getMenuIconView().setImageResource(R.drawable.ic_fab_x);
+
+                //mCentralAdapter.clear();
+                mCentralAdapter.setGridData(centralList);
+
+                //hide toolbar
+                ((MainActivity) getViewContext()).hideToolBar(true);
+
+                //hide tabs
+                viewPager.setVisibility(View.GONE);
+                appBarLayout.setVisibility(View.GONE);
+
+            }
+        }
+    }
+
+}

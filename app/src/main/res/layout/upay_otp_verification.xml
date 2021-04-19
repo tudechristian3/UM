@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="16dp"
+    android:layout_gravity="center">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:padding="16dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="An authorization request has been sent to your mobile app. Make sure you are currently logged in."
+            android:textSize="16sp"
+            android:gravity="center"
+            android:layout_marginTop="16dp"
+            android:padding="16dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Please approve authorization and enter the code."
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:padding="16dp"/>
+
+        <in.aabhasjindal.otptextview.OtpTextView
+            android:id="@+id/otp_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            app:height="30dp"
+            android:layout_gravity="center"
+            app:width="30dp"
+            app:bar_enabled="true"
+            app:bar_height="2dp"
+            app:length="6" />
+
+        <Button
+            android:id="@+id/upayBtn"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:backgroundTint="#00AE5A"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:text="Authorize Payment"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            />
+        <Button
+            android:id="@+id/upayBtnCancel"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:backgroundTint="#006DB4"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:text="Cancel"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

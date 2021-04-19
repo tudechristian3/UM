@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="SCOPE_TYPE" value="3" />
+  </component>
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="SP" />
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="debug" />
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="cdeb6ef4-c643-4381-92ad-f29fa865a23a" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1m07UWpZJ4zpzjGCstmRenWhG4e" />
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="android-custom-viewC:/Users/FUJI/.gradle/caches/modules-2/files-2.1/androidx.recyclerview/recyclerview/1.1.0/f2bdf79e1977939817f54a9d3e2f6bc52b63bdd0/recyclerview-1.1.0-sources.jar!/androidx/recyclerview/widget/RecyclerView.java_SELECTED" value="RecyclerView" />
+    <property name="android-custom-viewC:/Users/FUJI/.gradle/caches/modules-2/files-2.1/com.google.android.material/material/1.1.0/7ba5bcd622e3d6d7ab6b9833717c4385e4ba0a51/material-1.1.0-sources.jar!/com/google/android/material/navigation/NavigationView.java_SELECTED" value="NavigationView" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="multi-representation-previewC:/Users/FUJI/.gradle/caches/modules-2/files-2.1/androidx.recyclerview/recyclerview/1.1.0/f2bdf79e1977939817f54a9d3e2f6bc52b63bdd0/recyclerview-1.1.0-sources.jar!/androidx/recyclerview/widget/RecyclerView.java_selected" value="Custom views" />
+    <property name="multi-representation-previewC:/Users/FUJI/.gradle/caches/modules-2/files-2.1/com.google.android.material/material/1.1.0/7ba5bcd622e3d6d7ab6b9833717c4385e4ba0a51/material-1.1.0-sources.jar!/com/google/android/material/navigation/NavigationView.java_selected" value="Custom views" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.17" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\FUJI\Desktop\Ultra\app\src\main\res\layout" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.ultramega.shop.pojo" />
+      <recent name="com.ultramega.shop.pojo.scan" />
+    </key>
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.ultramega.shop.pojo" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
+      <module name="Ultra.app" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ALL_USERS" value="false" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Hybrid>
+      <Java />
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sample Java Methods" />
+        <option name="STARTUP_NATIVE_MEMORY_PROFILING_ENABLED" value="false" />
+        <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <option name="SEARCH_ACTIVITY_IN_GLOBAL_SCOPE" value="false" />
+      <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration" cleanupOnStartRun="true">
+    <configuration>C:\Users\FUJI\AppData\Roaming\Subversion</configuration>
+    <supportedVersion>125</supportedVersion>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="cdeb6ef4-c643-4381-92ad-f29fa865a23a" name="Default Changelist" comment="" />
+      <created>1608618670370</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1608618670370</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="317" y="176" key="#PSD" timestamp="1609730458334">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="317" y="176" key="#PSD/0.0.1600.860@0.0.1600.860" timestamp="1609730458334" />
+    <state x="605" y="136" key="#com.intellij.ide.util.MemberChooser" timestamp="1615787826210">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="605" y="136" key="#com.intellij.ide.util.MemberChooser/0.0.1600.860@0.0.1600.860" timestamp="1615787826210" />
+    <state x="530" y="177" key="#com.intellij.refactoring.typeMigration.ui.FailedConversionsDialog" timestamp="1615858084212">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="530" y="177" key="#com.intellij.refactoring.typeMigration.ui.FailedConversionsDialog/0.0.1600.860@0.0.1600.860" timestamp="1615858084212" />
+    <state x="558" y="279" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1614070771406">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="558" y="279" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1600.860@0.0.1600.860" timestamp="1614070771406" />
+    <state x="644" y="202" key="AndroidCreateXmlResourceDialog" timestamp="1612945691812">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="644" y="202" key="AndroidCreateXmlResourceDialog/0.0.1600.860@0.0.1600.860" timestamp="1612945691812" />
+    <state x="598" y="176" key="AndroidProcessChooserDialog" timestamp="1615859281983">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="598" y="176" key="AndroidProcessChooserDialog/0.0.1600.860@0.0.1600.860" timestamp="1615859281983" />
+    <state width="401" height="438" key="DebuggerActiveHint" timestamp="1609912861343">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state width="401" height="438" key="DebuggerActiveHint/0.0.1600.860@0.0.1600.860" timestamp="1609912861343" />
+    <state x="580" y="185" key="FileChooserDialogImpl" timestamp="1617106499340">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="580" y="185" key="FileChooserDialogImpl/0.0.1600.860@0.0.1600.860" timestamp="1617106499340" />
+    <state width="1556" height="400" key="GridCell.Tab.0.bottom" timestamp="1615867106975">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state width="1556" height="400" key="GridCell.Tab.0.bottom/0.0.1600.860@0.0.1600.860" timestamp="1615867106975" />
+    <state width="1556" height="400" key="GridCell.Tab.0.center" timestamp="1615867106974">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state width="1556" height="400" key="GridCell.Tab.0.center/0.0.1600.860@0.0.1600.860" timestamp="1615867106974" />
+    <state width="1556" height="400" key="GridCell.Tab.0.left" timestamp="1615867106974">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state width="1556" height="400" key="GridCell.Tab.0.left/0.0.1600.860@0.0.1600.860" timestamp="1615867106974" />
+    <state width="1556" height="400" key="GridCell.Tab.0.right" timestamp="1615867106974">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state width="1556" height="400" key="GridCell.Tab.0.right/0.0.1600.860@0.0.1600.860" timestamp="1615867106974" />
+    <state width="1539" height="535" key="GridCell.Tab.1.bottom" timestamp="1615863395204">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state width="1539" height="535" key="GridCell.Tab.1.bottom/0.0.1600.860@0.0.1600.860" timestamp="1615863395204" />
+    <state width="1539" height="535" key="GridCell.Tab.1.center" timestamp="1615863395204">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state width="1539" height="535" key="GridCell.Tab.1.center/0.0.1600.860@0.0.1600.860" timestamp="1615863395204" />
+    <state width="1539" height="535" key="GridCell.Tab.1.left" timestamp="1615863395204">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state width="1539" height="535" key="GridCell.Tab.1.left/0.0.1600.860@0.0.1600.860" timestamp="1615863395204" />
+    <state width="1539" height="535" key="GridCell.Tab.1.right" timestamp="1615863395204">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state width="1539" height="535" key="GridCell.Tab.1.right/0.0.1600.860@0.0.1600.860" timestamp="1615863395204" />
+    <state x="521" y="170" width="540" height="524" key="StructurePopup" timestamp="1609899956337">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="521" y="170" width="540" height="524" key="StructurePopup/0.0.1600.860@0.0.1600.860" timestamp="1609899956337" />
+    <state width="504" height="446" key="SwitcherDM" timestamp="1609120939647">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state width="504" height="446" key="SwitcherDM/0.0.1600.860@0.0.1600.860" timestamp="1609120939647" />
+    <state width="808" height="438" key="XDebugger.FullValuePopup" timestamp="1613530634820">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state width="808" height="438" key="XDebugger.FullValuePopup/0.0.1600.860@0.0.1600.860" timestamp="1613530634820" />
+    <state x="448" y="44" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1614069641549">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="448" y="44" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1600.860@0.0.1600.860" timestamp="1614069641549" />
+    <state x="617" y="227" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1614820121053">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="617" y="227" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1600.860@0.0.1600.860" timestamp="1614820121053" />
+    <state x="457" y="187" width="937" height="558" key="find.popup" timestamp="1615867260373">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="457" y="187" width="937" height="558" key="find.popup/0.0.1600.860@0.0.1600.860" timestamp="1615867260373" />
+    <state x="634" y="187" key="refactoring.ChangeSignatureDialog" timestamp="1614309504853">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="634" y="187" key="refactoring.ChangeSignatureDialog/0.0.1600.860@0.0.1600.860" timestamp="1614309504853" />
+    <state x="456" y="195" key="run.anything.popup" timestamp="1615798272070">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="456" y="195" key="run.anything.popup/0.0.1600.860@0.0.1600.860" timestamp="1615798272070" />
+    <state x="463" y="180" width="672" height="678" key="search.everywhere.popup" timestamp="1615353062037">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="463" y="180" width="672" height="678" key="search.everywhere.popup/0.0.1600.860@0.0.1600.860" timestamp="1615353062037" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/ultramega/shop/fragment/myshoppingcart/checkout/delivery/SpecialInstructionsFragment.java</url>
+          <line>434</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/ultramega/shop/fragment/myshoppingcart/checkout/pickup/PickUpFragment.java</url>
+          <line>363</line>
+          <option name="timeStamp" value="42" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo typeName="com.ultramega.shop.pojo.Branches" fieldName="AuthorisedRepresentative" />
+      </pinned-members>
+    </pin-to-top-manager>
+    <watches-manager>
+      <configuration name="app">
+        <watch expression="mGridData.get(0)" />
+        <watch expression="this" />
+        <watch expression="mGridData.get(0).shadow$_monitor_" />
+        <watch expression="checker" />
+        <watch expression="checker" language="JAVA" />
+      </configuration>
+    </watches-manager>
+  </component>
+</project>

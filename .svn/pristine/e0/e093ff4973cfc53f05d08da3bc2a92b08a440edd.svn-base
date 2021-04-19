@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.ultramega.shop">
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.READ_PRIVILEGED_PHONE_STATE"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the 'MyLocation' functionality. 
+    -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" /> <!-- Required to show current location -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <application
+        android:name="androidx.multidex.MultiDexApplication"
+        android:allowBackup="true"
+        android:fullBackupContent="@xml/backup_descriptor"
+        android:icon="@mipmap/ic_launcher_um_shooper"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:replace="android:theme"
+        tools:targetApi="n">
+
+
+        <!--
+     The API key for Google Maps-based APIs is defined as a string resource.
+     (See the file "res/values/google_maps_api.xml").
+     Note that the API key is linked to the encryption key used to sign the APK.
+     You need a different API key for each encryption key, including the release key that is used to
+     sign the APK for publishing.
+     You can define the keys for the debug and release targets in src/debug/ and src/release/.
+        -->
+
+        <meta-data
+            android:name="firebase_crashlytics_collection_enabled"
+            android:value="false" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+        <activity
+            android:name=".activity.MainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ViewShopItemActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ultramega.shop.activity.MainActivity" />
+        </activity>
+        <activity
+            android:name=".activity.ViewMyOrdersDetailsActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ultramega.shop.activity.MainActivity" />
+        </activity>
+        <activity
+            android:name=".activity.PaymentOptionActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ultramega.shop.activity.MainActivity" />
+        </activity>
+        <activity
+            android:name=".activity.SettingsActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ultramega.shop.activity.MainActivity" />
+        </activity>
+        <activity
+            android:name=".activity.SettingsActivitySelected"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SplashScreenActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.SearchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ScanQRCodeActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ultramega.shop.activity.MainActivity" />
+        </activity>
+        <activity
+            android:name=".activity.SelectVariationActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="unspecified"
+            android:theme="@style/SelectVariationTheme" />
+        <activity
+            android:name=".activity.LoginActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ultramega.shop.activity.MainActivity" />
+        </activity>
+        <activity
+            android:name=".activity.ConsumerWholesalerSignUpActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ultramega.shop.activity.MainActivity" />
+        </activity>
+        <activity
+            android:name=".activity.SupportIssueActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ultramega.shop.activity.MainActivity" />
+        </activity>
+        <activity
+            android:name=".activity.NewSupportIssueActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ultramega.shop.activity.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
+        <activity
+            android:name=".activity.InterestActivity"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="unspecified"
+            android:theme="@style/transparent_alertDialog" />
+        <activity
+            android:name=".activity.SelectOrderDeliveryAddress"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ultramega.shop.activity.MainActivity" />
+        </activity>
+        <activity
+            android:name=".activity.OrderDeliverySummary"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ultramega.shop.activity.MainActivity" />
+        </activity>
+        <activity
+            android:name=".activity.ReloadWalletActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ultramega.shop.activity.MainActivity" />
+        </activity>
+        <activity
+            android:name=".activity.CheckoutProductsActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.SelectNewAddressActivity" />
+        <activity
+            android:name=".activity.AddAddressActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".activity.profile.EditProfileActivity"
+            android:label="Edit Profile"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.PickUpActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ultramega.shop.activity.MainActivity" />
+        </activity>
+        <activity
+            android:name=".activity.ViewWalletReloadDetailsActivity"
+            android:label="Reload Details"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ultramega.shop.activity.MainActivity" />
+        </activity>
+        <activity
+            android:name=".activity.SearchResultActivity"
+            android:label="Search Results"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.wallet.ReloadWalletThruCardActivity"
+            android:label="Reload Thru Card"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.wallet.PesoPayWebViewActivity"
+            android:label="Reload Thru Card"
+            android:screenOrientation="portrait" /> <!-- FCM -->
+        <service
+            android:name=".util.firebase.UMShopFirebaseMessagingService"
+            android:exported="false"
+            android:stopWithTask="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorAccent" />
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" /> <!-- END FCM -->
+        <!-- <activity -->
+        <!-- android:name="com.facebook.FacebookActivity" -->
+        <!-- android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation" -->
+        <!-- android:label="@string/app_name" /> -->
+        <!-- <activity -->
+        <!-- android:name="com.facebook.CustomTabActivity" -->
+        <!-- android:exported="true"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.VIEW" /> -->
+        <!-- <category android:name="android.intent.category.DEFAULT" /> -->
+        <!-- <category android:name="android.intent.category.BROWSABLE" /> -->
+        <!-- <data android:scheme="@string/fb_login_protocol_scheme" /> -->
+        <!-- </intent-filter> -->
+        <!-- </activity> -->
+        <activity
+            android:name=".activity.notification.NotificationActivity"
+            android:label="Notification"
+            android:screenOrientation="portrait" />
+        <activity android:name=".kotlinpaymaya.PaymayaRedirectionActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleInstance"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:configChanges="uiMode"/>
+        <activity
+            android:name=".activity.notification.NotificationActivityDetails"
+            android:label="Notification Details"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.notification.PushNotificationActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.items.ViewItemsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.UltramegaQuickTourActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.shoppingcart.ViewShoppingCartsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.profile.EditWholesalerProfileActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.fullscreenimage.FullScreenActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/SelectVariationTheme"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".activity.shoppingmode.ShoppingModeActivity"
+            android:screenOrientation="unspecified"
+            android:theme="@style/SelectVariationTheme" />
+    </application>
+
+</manifest>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/transparent"
+            android:enabled="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:gravity="start|center_vertical"
+            android:inputType="text"
+            android:paddingEnd="0dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="0dp"
+            android:paddingStart="20dp"
+            android:text="VIEW ARCHIVE"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:orientation="horizontal"
+        android:paddingEnd="0dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="0dp"
+        android:paddingStart="30dp">
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/edtMonth"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:layout_weight="1"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:gravity="start|center_vertical"
+            android:hint="Month"
+            android:inputType="textPersonName|textNoSuggestions"
+            android:textSize="16sp"
+            app:met_baseColor="@color/colorProductDetail"
+            app:met_floatingLabel="normal"
+            app:met_floatingLabelPadding="5dp"
+            app:met_floatingLabelTextColor="@color/colorShoppingCartTotal"
+            app:met_hideUnderline="true"
+            app:met_primaryColor="@color/colorShoppingCartTotal"
+            app:met_textColor="@color/color_333333"
+            app:met_typeface="fonts/ElliotSans-Regular.ttf" />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/edtYear"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:layout_weight="1"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:gravity="start|center_vertical"
+            android:hint="Year"
+            android:inputType="textPersonName|textNoSuggestions"
+            android:textSize="16sp"
+            app:met_baseColor="@color/colorProductDetail"
+            app:met_floatingLabel="normal"
+            app:met_floatingLabelPadding="5dp"
+            app:met_floatingLabelTextColor="@color/colorShoppingCartTotal"
+            app:met_hideUnderline="true"
+            app:met_primaryColor="@color/colorShoppingCartTotal"
+            app:met_textColor="@color/color_333333"
+            app:met_typeface="fonts/ElliotSans-Regular.ttf" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorWhite"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/txvDateClose"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="end|center_vertical"
+            android:paddingEnd="30dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="30dp"
+            android:paddingStart="0dp"
+            android:text="CANCEL" />
+
+        <TextView
+            android:id="@+id/txvFilter"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="end|center_vertical"
+            android:paddingEnd="20dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="20dp"
+            android:paddingStart="0dp"
+            android:text="FILTER"
+            android:textColor="@color/colorPrimary" />
+
+    </LinearLayout>
+
+</LinearLayout>

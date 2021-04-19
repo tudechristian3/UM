@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: ru.gildor.coroutines:kotlin-coroutines-okhttp:1.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/ru.gildor.coroutines/kotlin-coroutines-okhttp/1.0/b54be779d512b8c16c1935a360c501ebd66587c2/kotlin-coroutines-okhttp-1.0.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/ru.gildor.coroutines/kotlin-coroutines-okhttp/1.0/56f2200a4aac4445e03bdb8f701f9dcefc84deea/kotlin-coroutines-okhttp-1.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/ru.gildor.coroutines/kotlin-coroutines-okhttp/1.0/a469033af9f38284027bfd6e673e3f98e5dc840c/kotlin-coroutines-okhttp-1.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

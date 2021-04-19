@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:fab="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar" />
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <!--WALLET LAYOUT-->
+                <LinearLayout
+                    android:id="@+id/walletLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@color/color_2196F3"
+                    android:orientation="horizontal"
+                    android:paddingEnd="9dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="9dp"
+                    android:paddingStart="20dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/walletbalancelabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="start|center_vertical"
+                        android:paddingEnd="10dp"
+                        android:paddingLeft="0dp"
+                        android:paddingRight="10dp"
+                        android:paddingStart="0dp"
+                        android:text="BAL:"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="18sp" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:background="@color/color_55ABEF"
+                        android:orientation="horizontal"
+                        android:paddingEnd="0dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="0dp"
+                        android:paddingStart="5dp">
+
+                        <TextView
+                            android:id="@+id/walletbalance"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center|center_vertical"
+                            android:text="2,235.00 PHP"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="18sp" />
+
+                        <ImageView
+                            android:id="@+id/refreshwallet"
+                            android:layout_width="40dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="start|center_vertical"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_sync_2" />
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/right_icon"
+                        android:layout_width="40dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="end|center_vertical"
+                        android:contentDescription="@null"
+                        android:paddingEnd="0dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="0dp"
+                        android:paddingStart="10dp"
+                        android:src="@drawable/ic_cart_right" />
+
+                </LinearLayout>
+
+                <!--CART LAYOUT-->
+                <LinearLayout
+                    android:id="@+id/cartlayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <include layout="@layout/fragment_empty_cart" />
+
+                    <androidx.coordinatorlayout.widget.CoordinatorLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <androidx.core.widget.NestedScrollView
+                            android:id="@+id/nested_scroll"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fillViewport="true"
+                            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:focusableInTouchMode="true"
+                                android:orientation="vertical">
+
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/recycler_view_my_shopping_cart"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@color/colorWhite"
+                                    tools:listitem="@layout/fragment_my_shopping_cart_list_item" />
+
+                                <LinearLayout
+                                    android:id="@+id/confirm_layout"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:gravity="bottom"
+                                    android:orientation="vertical">
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="3dp"
+                                        android:background="@drawable/shopping_cart_divider"
+                                        android:orientation="horizontal" />
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical"
+                                        android:paddingBottom="15dp"
+                                        android:paddingEnd="15dp"
+                                        android:paddingLeft="15dp"
+                                        android:paddingRight="15dp"
+                                        android:paddingStart="15dp"
+                                        android:paddingTop="15dp">
+
+                                        <RelativeLayout
+                                            android:id="@+id/totalBulkLayout"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:gravity="center_vertical"
+                                            android:visibility="gone">
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:gravity="start"
+                                                android:text="TOTAL BULK QTY."
+                                                android:textColor="@color/color_B7B8BC"
+                                                android:textSize="16sp" />
+
+                                            <TextView
+                                                android:id="@+id/txvTotalBulk"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_alignParentEnd="true"
+                                                android:layout_alignParentRight="true"
+                                                android:gravity="end"
+                                                android:textColor="@color/color_EB1C24"
+                                                android:textSize="18sp"
+                                                tools:ignore="RelativeOverlap" />
+                                        </RelativeLayout>
+
+                                        <RelativeLayout
+                                            android:id="@+id/totalNonBulkLayout"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:gravity="center_vertical"
+                                            android:visibility="gone">
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:gravity="start"
+                                                android:text="TOTAL NON-BULK QTY."
+                                                android:textColor="@color/color_B7B8BC"
+                                                android:textSize="16sp" />
+
+                                            <TextView
+                                                android:id="@+id/txvTotalNonBulk"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_alignParentEnd="true"
+                                                android:layout_alignParentRight="true"
+                                                android:gravity="end"
+                                                android:textColor="@color/color_EB1C24"
+                                                android:textSize="18sp"
+                                                tools:ignore="RelativeOverlap" />
+                                        </RelativeLayout>
+
+                                        <RelativeLayout
+                                            android:id="@+id/totalQuantityLayout"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:gravity="center_vertical">
+
+                                            <TextView
+                                                android:id="@+id/my_shopping_cart_product_name"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:gravity="start"
+                                                android:text="@string/textTotalQuantity"
+                                                android:textColor="@color/color_B7B8BC"
+                                                android:textSize="16sp" />
+
+                                            <TextView
+                                                android:id="@+id/my_shopping_cart_product_quantity"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_alignParentEnd="true"
+                                                android:layout_alignParentRight="true"
+                                                android:gravity="end"
+                                                android:textColor="@color/color_EB1C24"
+                                                android:textSize="18sp"
+                                                tools:ignore="RelativeOverlap" />
+                                        </RelativeLayout>
+
+                                        <RelativeLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:gravity="center_vertical"
+                                            android:paddingTop="15dp">
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:gravity="start"
+                                                android:text="@string/textTotal"
+                                                android:textColor="@color/color_B7B8BC"
+                                                android:textSize="16sp" />
+
+                                            <TextView
+                                                android:id="@+id/my_shopping_cart_product_total"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_alignParentEnd="true"
+                                                android:layout_alignParentRight="true"
+                                                android:gravity="end"
+                                                android:textColor="@color/color_EB1C24"
+                                                android:textSize="18sp" />
+                                        </RelativeLayout>
+
+                                    </LinearLayout>
+
+                                    <Button
+                                        android:id="@+id/btnCheckout"
+                                        style="?android:attr/borderlessButtonStyle"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:background="@color/color_EB1C24"
+                                        android:text="@string/textCheckOut"
+                                        android:textColor="@color/colorWhite"
+                                        android:textSize="18sp" />
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                        </androidx.core.widget.NestedScrollView>
+
+                    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <include layout="@layout/smooth_progress_bar" />
+
+        </FrameLayout>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+</LinearLayout>
+

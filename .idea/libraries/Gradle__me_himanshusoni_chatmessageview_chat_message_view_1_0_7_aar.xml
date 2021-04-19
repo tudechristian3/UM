@@ -1,0 +1,21 @@
+<component name="libraryTable">
+  <library name="Gradle: me.himanshusoni.chatmessageview:chat-message-view:1.0.7@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d003a9ee07ae3ec3ab8df5e49eec6f82/jetified-chat-message-view-1.0.7/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d003a9ee07ae3ec3ab8df5e49eec6f82/jetified-chat-message-view-1.0.7/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d003a9ee07ae3ec3ab8df5e49eec6f82/jetified-chat-message-view-1.0.7/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9ec3f7ddc673e8a1c2441851c993e267/jetified-chat-message-view-1.0.7/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9ec3f7ddc673e8a1c2441851c993e267/jetified-chat-message-view-1.0.7/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9ec3f7ddc673e8a1c2441851c993e267/jetified-chat-message-view-1.0.7/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/bb67c5be6cabd8a9a3e4a10d595a27d6/jetified-chat-message-view-1.0.7/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/bb67c5be6cabd8a9a3e4a10d595a27d6/jetified-chat-message-view-1.0.7/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/bb67c5be6cabd8a9a3e4a10d595a27d6/jetified-chat-message-view-1.0.7/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/me.himanshusoni.chatmessageview/chat-message-view/1.0.7/cbea01cca16f26c265b86925bf97084928c39cbd/chat-message-view-1.0.7-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/me.himanshusoni.chatmessageview/chat-message-view/1.0.7/faee8ad544addd3459cdb090c95eb1febbd17e94/chat-message-view-1.0.7-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

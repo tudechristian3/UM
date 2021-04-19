@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/radioGroupSupport">
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:id="@+id/radioButtonSubmitIssue"
+            android:layout_gravity="start"
+            android:checked="false"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:paddingLeft="15dp"
+            android:drawableEnd="@drawable/ic_chevron_right"
+            android:drawableRight="@drawable/ic_chevron_right"
+            android:button="@android:color/transparent"
+            android:background="@drawable/horizontal_divider_dedede"
+            android:textColor="@color/color_757575"
+            android:textSize="14sp" />
+
+        <RadioButton
+            android:id="@+id/radioButtonMyIssues"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="start"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:paddingLeft="15dp"
+            android:drawableEnd="@drawable/ic_chevron_right"
+            android:drawableRight="@drawable/ic_chevron_right"
+            android:background="@drawable/horizontal_divider_dedede"
+            android:button="@android:color/transparent"
+            android:checked="false"
+            android:textColor="@color/color_757575"
+            android:textSize="14sp" />
+
+    </RadioGroup>
+
+
+</LinearLayout>

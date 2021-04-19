@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/categoriesLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="2dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:paddingBottom="3dp"
+    android:paddingTop="3dp"
+    app:flChildSpacing="auto"
+    app:flChildSpacingForLastRow="auto"
+    app:flFlow="false"
+    app:flRowSpacing="8dp">
+
+    <TextView
+        android:id="@+id/categoriesName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:maxLines="2"
+        android:paddingBottom="4dp"
+        android:paddingEnd="12dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingStart="12dp"
+        android:paddingTop="4dp"
+        android:textAllCaps="false"
+        android:textSize="18sp" />
+
+    <ImageView
+        android:id="@+id/img_interest"
+        android:layout_width="0dp"
+        android:layout_height="10dp"
+        android:layout_gravity="center"
+        android:layout_marginEnd="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_weight=".1"
+        android:contentDescription="@null"
+        android:gravity="center"
+        android:src="@drawable/ic_circle_interest" />
+
+</LinearLayout>

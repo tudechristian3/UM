@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/CategoriesListItemStyle"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhite"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="vertical"
+    android:paddingRight="0dp">
+
+    <TextView
+        android:id="@+id/categoriesName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:gravity="start"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:textColor="#CC000000"
+        android:textSize="16sp" />
+
+    <ImageView
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_gravity="end|center_vertical"
+        android:contentDescription="@null"
+        android:rotation="90"
+        android:src="@drawable/ic_keyboard_arrow_up"
+        android:tint="@color/color_757575" />
+
+</FrameLayout>
+
+

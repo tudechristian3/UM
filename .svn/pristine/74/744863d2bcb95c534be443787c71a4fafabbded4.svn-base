@@ -1,0 +1,109 @@
+package com.ultramega.shop.util;
+
+
+import android.content.Context;
+import android.content.SharedPreferences;
+
+public class UserPreferenceManager {
+
+    private static final String APP_ID = "ultramega_shop";
+    public static final String KEY_IS_LOGGED_IN = "is_logged_in";
+    public static final String KEY_IS_FIRST_LOGIN_SHOP = "isShopFirstLogin";
+    public static final String KEY_IS_FIRST_LOGIN_WHOLESALER = "isWholeSalerFirstLogin";
+    public static final String KEY_NOTIFICATION_BADGE_COUNT = "notification_badge_count";
+    public static final String KEY_TEMP_PAYMENTOPTION = "paymentoption";
+    public static final String KEY_ENVIRONMENT = "environment";
+
+//    public static void preferencePutInteger(String key, int value) {
+//        MainActivity.getApplicationPreferenceEditor().putInt(key, value);
+//        MainActivity.getApplicationPreferenceEditor().commit();
+//    }
+//
+//    public static void preferencePutBoolean(String key, boolean value) {
+//        MainActivity.getApplicationPreferenceEditor().putBoolean(key, value);
+//        MainActivity.getApplicationPreferenceEditor().commit();
+//    }
+//
+//    public static boolean preferenceGetBoolean(Context context, String key, boolean defaultValue) {
+//        return MainActivity.getApplicationPreference(context).getBoolean(key, defaultValue);
+//    }
+//
+//    public static void preferencePutString(String key, String value) {
+//        MainActivity.getApplicationPreferenceEditor().putString(key, value);
+//        MainActivity.getApplicationPreferenceEditor().commit();
+//    }
+//
+//    public static String preferenceGetString(Context context, String key, String defaultValue) {
+//        return MainActivity.getApplicationPreference(context).getString(key, defaultValue);
+//    }
+//
+//    public static void preferenceRemoveKey(String key) {
+//        MainActivity.getApplicationPreferenceEditor().remove(key);
+//        MainActivity.getApplicationPreferenceEditor().commit();
+//    }
+//
+//    public static void clearPreference() {
+//        MainActivity.getApplicationPreferenceEditor().clear();
+//        MainActivity.getApplicationPreferenceEditor().commit();
+//    }
+
+    //remove key
+    public static void removePreference(Context context, String key) {
+        SharedPreferences prefs = context.getSharedPreferences(APP_ID, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.remove(key);
+        editor.apply();
+    }
+
+
+    //Added by Ban
+    public static void clearPreference(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences(APP_ID, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.clear();
+        editor.apply();
+    }
+
+    public static void saveIntegerPreference(Context context, String key, int value) {
+        SharedPreferences prefs = context.getSharedPreferences(APP_ID, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt(key, value);
+        editor.apply();
+    }
+
+    public static void saveBooleanPreference(Context context, String key, boolean value) {
+        SharedPreferences prefs = context.getSharedPreferences(APP_ID, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean(key, value);
+        editor.apply();
+    }
+
+    public static void saveStringPreference(Context context, String key, String value) {
+        SharedPreferences prefs = context.getSharedPreferences(APP_ID, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(key, value);
+        editor.apply();
+    }
+
+    public static int getIntPreference(Context context, String key) {
+        int value = 0;
+        SharedPreferences prefs = context.getSharedPreferences(APP_ID, Context.MODE_PRIVATE);
+        value = prefs.getInt(key, 0);
+        return value;
+    }
+
+    public static boolean getBooleanPreference(Context context, String key) {
+        boolean value = false;
+        SharedPreferences prefs = context.getSharedPreferences(APP_ID, Context.MODE_PRIVATE);
+        value = prefs.getBoolean(key, false);
+        return value;
+    }
+
+    public static String getStringPreference(Context context, String key) {
+        String value = "";
+        SharedPreferences prefs = context.getSharedPreferences(APP_ID, Context.MODE_PRIVATE);
+        value = prefs.getString(key, "");
+        return value;
+    }
+
+}

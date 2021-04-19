@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_shop"
+            android:icon="@drawable/ic_shop_icon"
+            android:title="@string/shop" />
+        <!--<item-->
+            <!--android:id="@+id/nav_promos"-->
+            <!--android:icon="@drawable/ic_user_promo_menu"-->
+            <!--android:title="@string/promos" />-->
+        <!--<item-->
+            <!--android:id="@+id/nav_categories"-->
+            <!--android:icon="@drawable/ic_categories_icon"-->
+            <!--android:title="@string/categories" />-->
+        <!--<item-->
+            <!--android:id="@+id/nav_suppliers"-->
+            <!--android:icon="@drawable/ic_supplier"-->
+            <!--android:title="@string/suppliers" />-->
+    </group>
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_my_shopping_cart"
+            android:icon="@drawable/ic_shoping_cart_drawer_icon"
+            android:title="@string/my_shopping_cart" />
+        <item
+            android:id="@+id/nav_my_orders"
+            android:icon="@drawable/ic_my_orders"
+            android:title="@string/my_orders" />
+        <item
+            android:id="@+id/nav_wallet_reload"
+            android:icon="@drawable/ic_um_wallet_reload_2"
+            android:title="@string/wallet_reload"
+            android:visible="false"/>
+        <item
+            android:id="@+id/nav_my_list"
+            android:icon="@drawable/ic_my_list"
+            android:title="@string/my_list" />
+        <item
+            android:id="@+id/nav_loyalty_rewards"
+            android:icon="@drawable/ic_loyalty_rewards"
+            android:title="@string/loyalty_rewards"
+            android:visible="false"/>
+        <item
+            android:id="@+id/nav_switch_mode"
+            android:icon="@drawable/ic_my_list"
+            android:title="@string/string_switch_shoppping_mode" />
+    </group>
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_logout"
+            android:title="@string/logout" />
+        <item
+            android:id="@+id/nav_login"
+            android:icon="@drawable/ic_logout"
+            android:title="@string/login" />
+        <item
+        android:id="@+id/nav_changeEnv"
+        android:icon="@drawable/ic_baseline_settings_input_svideo_24"
+        android:title="Environment"
+            android:visible="false"/>
+    </group>
+</menu>

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    tools:context="com.ultramega.shop.activity.LoginActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include layout="@layout/toolbar" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical"
+            android:paddingEnd="20dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingStart="20dp"
+            android:paddingTop="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingEnd="20dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingStart="20dp">
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/edtmobilenumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:digits="1234567890"
+                    android:hint="@string/string_mobile_number"
+                    android:inputType="phone"
+                    android:textSize="16sp"
+                    app:met_baseColor="@color/colorProductDetail"
+                    app:met_floatingLabel="normal"
+                    app:met_floatingLabelPadding="5dp"
+                    app:met_floatingLabelTextColor="@color/colorShoppingCartTotal"
+                    app:met_helperTextAlwaysShown="true"
+                    app:met_helperTextColor="@color/colorShoppingCartTotal"
+                    app:met_hideUnderline="false"
+                    app:met_primaryColor="@color/colorShoppingCartTotal"
+                    app:met_textColor="@color/color_333333"
+                    app:met_typeface="fonts/ElliotSans-Regular.ttf" />
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/edtpassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:hint="@string/string_passwordP"
+                    android:inputType="textPassword"
+                    android:textSize="16sp"
+                    app:met_baseColor="@color/colorProductDetail"
+                    app:met_floatingLabel="normal"
+                    app:met_floatingLabelPadding="5dp"
+                    app:met_floatingLabelTextColor="@color/colorShoppingCartTotal"
+                    app:met_hideUnderline="false"
+                    app:met_primaryColor="@color/colorShoppingCartTotal"
+                    app:met_textColor="@color/color_333333"
+                    app:met_typeface="fonts/ElliotSans-Regular.ttf" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnLogin"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/button_login"
+                android:textAllCaps="false"
+                android:textColor="@color/colorWhite"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/txv_one_label_or"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10dp"
+                android:textColor="@color/color_989898"
+                android:textSize="18sp" />
+
+            <!--<com.facebook.login.widget.LoginButton-->
+            <!--android:id="@+id/login_button"-->
+            <!--style="@style/FacebookLoginButton"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="42dp"-->
+            <!--android:layout_gravity="center_horizontal"-->
+            <!--android:background="@drawable/button_login_with_facebook" />-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center|center_horizontal"
+                android:orientation="horizontal"
+                android:paddingBottom="20dp"
+                android:paddingTop="20dp">
+
+                <TextView
+                    android:id="@+id/txv_account_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="end|center_vertical"
+                    android:maxLines="2"
+                    android:paddingEnd="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingStart="5dp"
+                    android:textColor="@color/color_989898"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/btnSignUp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorWhite"
+                    android:gravity="start|center_vertical"
+                    android:textAllCaps="false"
+                    android:textColor="@color/color_0060B0"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center|center_horizontal"
+                android:orientation="horizontal"
+                android:paddingBottom="20dp">
+
+                <TextView
+                    android:id="@+id/forgotpassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="end|center_vertical"
+                    android:maxLines="2"
+                    android:paddingEnd="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingStart="5dp"
+                    android:textColor="@color/color_989898"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

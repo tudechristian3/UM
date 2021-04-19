@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhite"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingBottom="15dp"
+    android:paddingEnd="15dp"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:paddingStart="15dp"
+    android:paddingTop="15dp">
+
+    <RelativeLayout
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:background="@color/colorWhite">
+
+        <ImageView
+            android:id="@+id/my_shopping_cart_product_photo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:contentDescription="@null"
+            android:gravity="center_vertical"
+            android:maxHeight="100dp"
+            android:scaleType="fitCenter" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingEnd="10dp"
+        android:paddingRight="10dp"
+        android:paddingStart="10dp">
+
+        <TextView
+            android:id="@+id/my_shopping_cart_product_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:ellipsize="middle"
+            android:maxLines="2"
+            android:paddingBottom="5dp"
+            android:textColor="@color/colorMyListProductName"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/my_shopping_cart_product_quantity"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:gravity="start"
+                android:textColor="@color/color_B7B8BC"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/my_shopping_cart_product_amount"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:textColor="@color/color_EB1C24"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

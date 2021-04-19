@@ -1,0 +1,148 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:listDivider">@color/colorNavListDivider</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:actionButtonStyle">@style/ActionButtonStyle</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="NavigationDrawerStyle">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="CategoriesListItemStyle">
+        <item name="android:paddingLeft">16sp</item>
+        <item name="android:paddingRight">16sp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+    </style>
+
+    <style name="CategoriesListItemStyleText">
+        <item name="android:textSize">50sp</item>
+        <item name="android:textColor">@color/colorCategoryItem</item>
+    </style>
+
+    <style name="ShadowText">
+        <item name="android:shadowColor">#DD000000</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">10</item>
+    </style>
+
+    <style name="SearchViewTheme" parent="Widget.AppCompat.SearchView.ActionBar">
+        <item name="android:textColorHint">@color/colorWhite</item>
+        <item name="colorControlNormal">@color/colorWhite</item>
+        <item name="colorControlHighlight">@color/material_ripple_light</item>
+        <item name="android:maxWidth">9999dp</item>
+    </style>
+
+    <style name="SelectVariationTheme" parent="AppTheme.NoActionBar">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFrame">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+
+        <!--
+            We want the translucent background painted by the root layout instead
+            of painted by the window.
+        -->
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+    </style>
+
+    <style name="TextViewSpinnerItem" parent="@android:style/Widget.Material.TextView.SpinnerItem">
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:paddingRight">0dp</item>
+    </style>
+
+    <!-- Base application theme. -->
+    <style name="ThemeApp.Consumer" parent="AppTheme.Consumer">
+        <item name="windowActionModeOverlay">true</item>
+        <item name="windowActionBarOverlay">true</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+    </style>
+
+    <style name="ThemeApp.Wholesaler" parent="AppTheme.Wholesaler">
+        <item name="windowActionModeOverlay">true</item>
+        <item name="windowActionBarOverlay">true</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+    </style>
+
+    <style name="DrawerArrowStyle" parent="@style/Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">true</item>
+        <item name="color">@android:color/black</item>
+    </style>
+
+    <!--Tab Layout Theme-->
+    <style name="ThemeApp.TabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabIndicatorHeight">0dp</item>
+        <item name="tabIndicatorColor">@color/colorWhite</item>
+        <item name="tabSelectedTextColor">@color/colorWhite</item>
+    </style>
+
+    <!--Tab Text Appearance Theme-->
+    <style name="ThemeApp.TabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="textAllCaps">false</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <style name="FacebookLoginButton">
+        <item name="android:textSize">18sp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
+
+    <style name="transparent_alertDialog" parent="AppTheme.NoActionBar">
+        <item name="android:windowBackground">@color/transparent_interest</item>
+        <item name="android:windowFrame">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+    <style name="ActionButtonStyle" parent="@android:style/Widget.Holo.Light.ActionButton">
+        <item name="android:minWidth">0dip</item>
+        <item name="android:paddingLeft">0dip</item>
+        <item name="android:paddingRight">0dip</item>
+    </style>
+
+    <style name="AndroidImageSlider_Magnifier_Oval_Black">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingLeft">2dp</item>
+        <item name="android:paddingRight">2dp</item>
+        <item name="shape">oval</item>
+        <item name="padding_left">3dp</item>
+        <item name="padding_right">3dp</item>
+        <item name="padding_top">4dp</item>
+        <item name="padding_bottom">4dp</item>
+
+        <item name="selected_color">@color/colorTxtProductAmount</item>
+        <item name="unselected_color">@color/color_A6D5FA</item>
+        <item name="selected_width">8dp</item>
+        <item name="selected_height">8dp</item>
+        <item name="unselected_width">6dp</item>
+        <item name="unselected_height">6dp</item>
+    </style>
+
+</resources>

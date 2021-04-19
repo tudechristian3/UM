@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottomSheetLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:clipToPadding="true"
+    android:fillViewport="true"
+    android:orientation="vertical"
+    app:behavior_hideable="false"
+    app:behavior_peekHeight="250dp"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+    <RelativeLayout
+        android:id="@+id/dragBtn"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/color_2196F3"
+        android:gravity="center|center_vertical">
+
+        <ImageView
+            android:id="@+id/draggableImage"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_keyboard_arrow_up" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!--hint for ultramega branches-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_FAFAFA"
+            android:orientation="horizontal"
+            android:paddingBottom="15dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="15dp"
+            android:visibility="visible">
+
+            <TextView
+                android:id="@+id/txvbracheslabel"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="start|center_vertical"
+                android:text="ULTRAMEGA BRANCHES"
+                android:textColor="@color/color_050505"
+                android:visibility="visible" />
+
+            <LinearLayout
+                android:id="@+id/layout_label"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+                <ImageView
+                    android:id="@+id/refresh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_sync_2"
+                    android:tint="@color/color_353535" />
+
+                <SearchView
+                    android:id="@+id/searchbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="end|center_vertical"
+                    android:iconifiedByDefault="true"
+                    android:searchIcon="@drawable/ic_pickup_search" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_add_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
+            tools:listitem="@layout/fragment_pick_up_maps_item" />
+
+    </LinearLayout>
+
+</LinearLayout>

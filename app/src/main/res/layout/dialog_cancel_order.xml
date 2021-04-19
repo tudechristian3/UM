@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhite">
+
+    <ImageView
+        android:id="@+id/closeDialog"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:contentDescription="@null"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:src="@drawable/successfull_order_icon" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:text="CANCEL ORDER"
+            android:textColor="@color/color_606060"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="PRE BALANCE"
+                android:textColor="@color/color_908F90"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/txvPreBalance"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical|end"
+                android:textAllCaps="true"
+                android:textColor="@color/color_23A8F6" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="AMOUNT REFUNDED"
+                android:textColor="@color/color_908F90"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/txvAmountRefunded"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical|end"
+                android:textColor="@color/color_23A8F6" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/deliverychargelayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="POST BALANCE"
+                android:textColor="@color/color_908F90"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/txvPostBalance"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical|end"
+                android:textColor="@color/color_23A8F6" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_212121"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/instructions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/box_halo"
+                android:focusable="true"
+                android:gravity="top|start"
+                android:inputType="textMultiLine|textNoSuggestions"
+                android:lines="8"
+                android:maxLength="50"
+                android:maxLines="5"
+                android:minLines="3"
+                android:padding="10dp"
+                android:scrollbars="vertical"
+                android:textColor="@color/color_333333" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|end"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txvCancelClose"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|end"
+                android:paddingEnd="30dp"
+                android:paddingRight="30dp"
+                android:text="CLOSE"
+                android:textAllCaps="true"
+                android:textColor="@color/color_606060"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txvCancelProceed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|end"
+                android:text="PROCEED"
+                android:textAllCaps="true"
+                android:textColor="@color/color_21A1EC"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

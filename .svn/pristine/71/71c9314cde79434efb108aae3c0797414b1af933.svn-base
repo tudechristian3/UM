@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="15dp"
+    android:layout_marginTop="15dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/txv_payment_txn_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TXN: 098901823"
+            android:textColor="@color/color_999999"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/string_payment_option"
+            android:textAllCaps="true"
+            android:textColor="@color/color_14c6f2" />
+
+        <TextView
+            android:id="@+id/txv_payment_option"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/color_5C5B5C" />
+
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="16dp"-->
+            <!--android:text="@string/string_total_amount"-->
+            <!--android:textAllCaps="true"-->
+            <!--android:textColor="@color/color_14c6f2" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/txv_total_amount"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textColor="@color/color_5C5B5C" />-->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/string_amount_paid"
+            android:textAllCaps="true"
+            android:textColor="@color/color_14c6f2" />
+
+        <TextView
+            android:id="@+id/txv_amount_paid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_5C5B5C" />
+
+    </LinearLayout>
+
+</LinearLayout>

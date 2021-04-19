@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="false"
+            android:orientation="vertical"
+            android:paddingBottom="30dp">
+
+            <FrameLayout
+                android:id="@+id/forPaymentFrameImage"
+                android:layout_width="match_parent"
+                android:layout_height="125dp"
+                android:background="@color/color_E4E4E4"
+                android:gravity="center|center_vertical"
+                android:minHeight="200dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center|center_vertical"
+                    android:layout_marginBottom="0dp"
+                    android:layout_marginTop="0dp"
+                    android:contentDescription="@null"
+                    android:padding="0dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/profile_image_bgd" />
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp"
+                android:orientation="vertical"
+                android:paddingEnd="15dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingStart="15dp">
+
+                <TextView
+                    android:id="@+id/profileLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:textColor="@color/color_1976D2"
+                    android:textSize="18sp" />
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/edtpassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:hint="@string/string_passwordP"
+                    android:inputType="textPassword"
+                    android:textSize="16sp"
+                    app:met_baseColor="@color/colorProductDetail"
+                    app:met_floatingLabel="normal"
+                    app:met_floatingLabelPadding="5dp"
+                    app:met_floatingLabelTextColor="@color/colorShoppingCartTotal"
+                    app:met_hideUnderline="false"
+                    app:met_primaryColor="@color/colorShoppingCartTotal"
+                    app:met_textColor="@color/color_333333"
+                    app:met_typeface="fonts/ElliotSans-Regular.ttf" />
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/edtnewpassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:hint="@string/string_new_password"
+                    android:inputType="textPassword"
+                    android:textSize="16sp"
+                    android:visibility="visible"
+                    app:met_baseColor="@color/colorProductDetail"
+                    app:met_floatingLabel="normal"
+                    app:met_floatingLabelPadding="5dp"
+                    app:met_floatingLabelTextColor="@color/colorShoppingCartTotal"
+                    app:met_hideUnderline="false"
+                    app:met_primaryColor="@color/colorShoppingCartTotal"
+                    app:met_textColor="@color/color_333333"
+                    app:met_typeface="fonts/ElliotSans-Regular.ttf" />
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/edtconfirmpassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:hint="@string/string_confirm_passwordPP"
+                    android:inputType="textPassword"
+                    android:textSize="16sp"
+                    app:met_baseColor="@color/colorProductDetail"
+                    app:met_floatingLabel="normal"
+                    app:met_floatingLabelPadding="5dp"
+                    app:met_floatingLabelTextColor="@color/colorShoppingCartTotal"
+                    app:met_hideUnderline="false"
+                    app:met_primaryColor="@color/colorShoppingCartTotal"
+                    app:met_textColor="@color/color_333333"
+                    app:met_typeface="fonts/ElliotSans-Regular.ttf" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/savepassword"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="5dp"
+                android:background="@drawable/bg_btn_accent_pay"
+                android:text="@string/string_save_password"
+                android:textColor="@color/colorWhite"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
+
